@@ -4,7 +4,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="C:/Users/torch/Downloads/Sandbox/targets/Preon32/tools/commander/Commander.jar"/>
 	<classpathentry kind="lib" path="C:/Users/torch/Downloads/Sandbox/targets/Preon32/tools/commander/jna.jar"/>
-	<classpathentry kind="lib" path="C:/Users/torch/Downloads/Sandbox/targets/Preon32/tools/commander/purejavacomm.jar"/>
+	<classpathentry kind="lib" path="C:/Users/torch/Downloads/Sandbox/targets/Preon32/tools/commander/purejavacomm.jar" sourcepath="/Sandbox/targets/Preon32_1.4/tools/commander/purejavacomm.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/Java/apache-ant-1.10.5/lib/ant.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/Java/apache-ant-1.10.5/lib/ant-launcher.jar"/>
 	<classpathentry kind="output" path="bin"/>

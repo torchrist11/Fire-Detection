@@ -386,22 +386,6 @@
 	7		<init>()V
 	2		size()I
 
-1532		java/io/BufferedReader
-	475		readLine()Ljava/lang/String;
-	226		skip(J)J
-	221		read([CII)I
-	155		fillBuf()I
-	86		read()I
-	74		mark(I)V
-	72		reset()V
-	66		ready()Z
-	50		close()V
-	38		<init>(Ljava/io/Reader;I)V
-	30		chompNewline()V
-	27		<init>(Ljava/io/Reader;)V
-	10		isClosed()Z
-	2		markSupported()Z
-
 1323		com/virtenio/driver/flash/GenericSPIFlash
 	173		read(I[BII)I
 	145		programPage(I[BII)V
@@ -618,19 +602,6 @@
 	2		getReceiveTimeout()I
 	0		command(Lcom/virtenio/driver/usart/NativeUSART;I)I
 
-341		com/virtenio/io/Console
-	77		readLong(Ljava/lang/String;)J
-	67		readLine(Ljava/lang/String;)Ljava/lang/String;
-	37		<init>(Ljava/io/Reader;Ljava/io/PrintStream;)V
-	34		<init>()V
-	30		readInt(Ljava/lang/String;II)I
-	29		readLong(Ljava/lang/String;JJ)J
-	27		readBool(Ljava/lang/String;)Z
-	21		readLine(Ljava/lang/String;Z)Ljava/lang/String;
-	7		readInt(Ljava/lang/String;)I
-	6		print(Ljava/lang/String;)V
-	6		println(Ljava/lang/String;)V
-
 339		com/virtenio/preon32/examples/common/RadioInit
 	184		<init>()V
 	118		initRadio()Lcom/virtenio/driver/device/at86rf231/AT86RF231;
@@ -646,15 +617,6 @@
 	11		toArray()[Ljava/lang/Object;
 	10		set(ILjava/lang/Object;)Ljava/lang/Object;
 	3		size()I
-
-283		java/io/InputStreamReader
-	78		read()I
-	55		read([CII)I
-	49		ready()Z
-	47		close()V
-	29		<init>(Ljava/io/InputStream;Ljava/lang/String;)V
-	15		<init>(Ljava/io/InputStream;)V
-	10		isOpen()Z
 
 267		BaseStation
 	82		<init>()V
@@ -897,6 +859,12 @@
 	0		compute(I[BIII)I
 	0		computeReverse(I[BIII)I
 
+27		com/virtenio/driver/usart/NativeUSART$1
+	10		createInstance(I)Lcom/virtenio/driver/usart/NativeUSART;
+	6		getInstanceCount()I
+	6		createInstance(I)Ljava/lang/Object;
+	5		<init>()V
+
 27		com/virtenio/driver/gpio/NativeGPIO$1
 	10		createInstance(I)Lcom/virtenio/driver/gpio/NativeGPIO;
 	6		getInstanceCount()I
@@ -911,12 +879,6 @@
 
 27		com/virtenio/driver/spi/NativeSPI$1
 	10		createInstance(I)Lcom/virtenio/driver/spi/NativeSPI;
-	6		getInstanceCount()I
-	6		createInstance(I)Ljava/lang/Object;
-	5		<init>()V
-
-27		com/virtenio/driver/usart/NativeUSART$1
-	10		createInstance(I)Lcom/virtenio/driver/usart/NativeUSART;
 	6		getInstanceCount()I
 	6		createInstance(I)Ljava/lang/Object;
 	5		<init>()V
@@ -957,6 +919,10 @@
 	7		<init>(Ljava/lang/String;)V
 	6		<init>()V
 
+12		com/virtenio/driver/usart/USARTException
+	6		<init>(I)V
+	6		<init>(Ljava/lang/Throwable;)V
+
 12		com/virtenio/driver/cpu/CPUException
 	6		<init>(I)V
 	6		<init>(Ljava/lang/Throwable;)V
@@ -974,10 +940,6 @@
 	6		<init>(Ljava/lang/Throwable;)V
 
 12		com/virtenio/driver/spi/SPIException
-	6		<init>(I)V
-	6		<init>(Ljava/lang/Throwable;)V
-
-12		com/virtenio/driver/usart/USARTException
 	6		<init>(I)V
 	6		<init>(Ljava/lang/Throwable;)V
 

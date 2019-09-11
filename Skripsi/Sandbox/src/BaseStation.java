@@ -87,7 +87,7 @@ public class BaseStation {
 							byte[] dg = f.getPayload();
 							String str = new String(dg, 0, dg.length);
 							String hex_addr = Integer.toHexString((int) f.getSrcAddr());
-							String hasil = "#(" + hex_addr + "): " + str+"#";
+							String hasil = "#(" + hex_addr + ");" + str+"#";
 //							temp[0] = hasil;
 							out.write(hasil.getBytes(), 0, hasil.length());
 							usart.flush();

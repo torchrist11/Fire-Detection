@@ -439,11 +439,6 @@
 	14		getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 	6		<init>()V
 
-660		Node
-	559		Sense()V
-	90		<init>()V
-	11		main([Ljava/lang/String;)V
-
 650		com/virtenio/driver/device/ADT7410
 	121		readValue(II)I
 	74		writeValue(III)V
@@ -501,6 +496,11 @@
 	7		startBothConversion()V
 	6		getPressureRaw()I
 	6		getTemperatureRaw()I
+
+596		Node
+	495		Sense()V
+	90		<init>()V
+	11		main([Ljava/lang/String;)V
 
 596		com/virtenio/net/NetAddress
 	138		<init>(Ljava/lang/String;)V

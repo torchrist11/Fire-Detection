@@ -19,7 +19,7 @@ public class Node {
 	private int COMMON_CHANNEL = 24;
 	private int COMMON_PANID = 0xCAFE;
 	private int ADDR_NODE1 = addresses[0];
-	private int ADDR_NODE2 = addresses[2];
+	private int ADDR_NODE2 = addresses[3];
 	private NativeI2C i2c;
 	private ADT7410 temperatureSensor;
 	private SHT21 humiditySensor;
@@ -61,14 +61,14 @@ public class Node {
 			String msg = "";
 			
 			float celsius = temperatureSensor.getTemperatureCelsius();
-			msg+="Temperature: "+ celsius + " [°C] ";
+			msg += celsius + ";";
 			//System.out.print("Temperature: " + celsius + " [°C] ");
 			
 			humiditySensor.startRelativeHumidityConversion();
 			Thread.sleep(100);
 			int rawRH = humiditySensor.getRelativeHumidityRaw();
 			float rh = SHT21.convertRawRHToRHw(rawRH);
-			msg+= "Humidity: " + rh + " [Rh] ";
+			msg += rh + ";";
 			//System.out.print("Humidity: " + rh + " [Rh] ");
 			
 			pressureSensor.startBothConversion();
@@ -76,14 +76,14 @@ public class Node {
 			int pressurePr = pressureSensor.getPressureRaw();
 			int tempRaw = pressureSensor.getTemperatureRaw();
 			float pressure = pressureSensor.compensate(pressurePr, tempRaw);
-			msg+= "Pressure: " + pressure;
+			msg += pressure;
 			Thread.sleep(1000 - MPL115A2.BOTH_CONVERSION_TIME);
 			
 			boolean isOK = false;
 			while(!isOK) {
 				try {
 					
-					String message = i + "=" + msg;
+					String message = i + ";" + msg;
 					Frame frame = new Frame(Frame.TYPE_DATA | Frame.ACK_REQUEST
 							| Frame.DST_ADDR_16 | Frame.INTRA_PAN | Frame.SRC_ADDR_16);
 					frame.setSrcAddr(ADDR_NODE2);
@@ -93,7 +93,7 @@ public class Node {
 					radio.setState(AT86RF231.STATE_TX_ARET_ON);
 					frame.setPayload(message.getBytes()); //ngasih paket ke frame
 					radio.transmitFrame(frame);
-					System.out.println("(" + i + ") : " + msg);
+					//System.out.println("(" + i + ") : " + msg);
 					isOK = true;
 					msg="";
 				}
