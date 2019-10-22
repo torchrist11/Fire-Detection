@@ -92,7 +92,7 @@ public class BaseStation {
 							out.write(hasil.getBytes(), 0, hasil.length());
 							usart.flush();
 							//System.out.println(hasil);
-							Thread.sleep(250);
+							Thread.sleep(1);
 						}
 					} catch (Exception e) {
 							//System.out.print("no input");

@@ -19,7 +19,7 @@ public class Node {
 	private int COMMON_CHANNEL = 24;
 	private int COMMON_PANID = 0xCAFE;
 	private int ADDR_NODE1 = addresses[0];
-	private int ADDR_NODE2 = addresses[3];
+	private int ADDR_NODE2 = addresses[1];
 	private NativeI2C i2c;
 	private ADT7410 temperatureSensor;
 	private SHT21 humiditySensor;
