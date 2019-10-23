@@ -10,16 +10,15 @@ import com.virtenio.driver.gpio.GPIO;
 import com.virtenio.driver.gpio.NativeGPIO;
 import com.virtenio.driver.i2c.I2C;
 import com.virtenio.driver.i2c.NativeI2C;
-import com.virtenio.misc.PropertyHelper;
 
 public class Node {
 	private int[] addresses = new int[] {
-			0xDACE, 0xAAAF,0xAADC, 0xCACF, 0xBCAF, 0xDACE
+			0xBAFE, 0xAAAF,0xAADC, 0xCACF, 0xBCAF, 0xDACE
 	};
 	private int COMMON_CHANNEL = 24;
 	private int COMMON_PANID = 0xCAFE;
 	private int ADDR_NODE1 = addresses[0];
-	private int ADDR_NODE2 = addresses[1];
+	private int ADDR_NODE2 = addresses[5];
 	private NativeI2C i2c;
 	private ADT7410 temperatureSensor;
 	private SHT21 humiditySensor;

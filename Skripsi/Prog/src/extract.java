@@ -72,7 +72,7 @@ public class extract {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		alamat = new String[] { "(DACE)", "(AAAF)", "(AADC)", "(CACF)", "(BCAF)", "(DACE)" };
+		alamat = new String[] { "(BAFE)", "(AAAF)", "(AADC)", "(CACF)", "(BCAF)", "(DACE)" };
 		node1T = new double[100];
 		node1H = new double[100];
 		node1P = new double[100];
@@ -82,9 +82,9 @@ public class extract {
 		node3T = new double[100];
 		node3H = new double[100];
 		node3P = new double[100];
-		node4T = new double[3];
-		node4H = new double[3];
-		node4P = new double[3];
+		node4T = new double[100];
+		node4H = new double[100];
+		node4P = new double[100];
 		node5T = new double[100];
 		node5H = new double[100];
 		node5P = new double[100];
@@ -195,7 +195,7 @@ public class extract {
 							x = String.format("%.4f", maxP);
 							y = String.format("%.4f", minP);
 							z = String.format("%.4f", temphasil);
-							hasilextract += x + " " + y + " " + z + " ";
+							hasilextract += x + " " + y + ";" + z + ";";
 							// hasilextract1 += maxP + " " + minP + " " + temphasil + " ";
 							writer.write(alamat[0]);
 							writer.write(hasilextract);
@@ -267,7 +267,7 @@ public class extract {
 							x = String.format("%.4f", maxH);
 							y = String.format("%.4f", minH);
 							z = String.format("%.4f", temphasil);
-							hasilextract += x + " " + y + " " + z + " ";
+							hasilextract += x + ";" + y + ";" + z + ";";
 							// hasilextract2 += maxH + ";" + minH + ";" + temphasil + ";";
 							temphasil = 0;
 
@@ -291,7 +291,7 @@ public class extract {
 							x = String.format("%.4f", maxP);
 							y = String.format("%.4f", minP);
 							z = String.format("%.4f", temphasil);
-							hasilextract += x + " " + y + " " + z + " ";
+							hasilextract += x + ";" + y + ";" + z + ";";
 							// hasilextract2 += maxP + " " + minP + " " + temphasil + " ";
 							writer.write(alamat[1]);
 							writer.write(hasilextract);
@@ -396,7 +396,7 @@ public class extract {
 						}
 					} else if (idx.equalsIgnoreCase(alamat[3])) {
 						// Masukin tiap nilai sensing ke array
-						if (m < 3) {
+						if (m < 100) {
 							node4T[m] = Double.parseDouble(temp2[2]);
 							node4H[m] = Double.parseDouble(temp2[3]);
 							node4P[m] = Double.parseDouble(temp2[4]);

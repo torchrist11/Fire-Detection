@@ -43,7 +43,7 @@ public class Control {
 			String s;
 			long count = 0;
 			File newFolder = new File(folder);
-			String angka = ";belum";
+			String tanda = ";belum";
 
 			public void run() {
 				// disini check apakah sdh ada direktori hari ini
@@ -64,27 +64,39 @@ public class Control {
 							s = new String(buffer);
 							String[] subStr = s.split("#");
 							for (String w : subStr) {
-								if (w.startsWith("(")) {
-									writer.write(w, 0, w.length());
-									writer.append(angka);
-									writer.newLine();
+								if (count == 0) {
+									if (w.startsWith("(")) {
+										writer.write(w, 0, w.length());
+										writer.append(tanda);
+										writer.newLine();
+										count++;
+										writer.close();
+										FileWriter fw = new FileWriter(path, true);
+										writer = new BufferedWriter(fw);
+									}
+								} else {
+									if (w.startsWith("(")) {
+										writer.write(w, 0, w.length());
+										writer.append(tanda);
+										writer.newLine();
+										count++;
+									}
 								}
-							}
-							count++;
-							if (count == 5) {
-								notused.waits();
-								writer.close();
-								notused.signals();
-								readAkhir = new BufferedReader(new FileReader(path));
-								try {
-									read();
-								} catch (Exception e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
+								if (count == 5) {
+									notused.waits();
+									writer.close();
+									notused.signals();
+									readAkhir = new BufferedReader(new FileReader(path));
+									try {
+										read();
+									} catch (Exception e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+									FileWriter fw = new FileWriter(path, true);
+									writer = new BufferedWriter(fw);
+									count = 0;
 								}
-								FileWriter fw = new FileWriter(path, true);
-								writer = new BufferedWriter(fw);
-								count = 0;
 							}
 						}
 					} catch (IOException e) {
@@ -247,10 +259,10 @@ public class Control {
 					line = line.replace("belum", "sudah");
 				lines.add(line);
 			}
-			
+
 			fr.close();
 			br.close();
-			
+
 			FileWriter fw = new FileWriter(path);
 			BufferedWriter out = new BufferedWriter(fw);
 			for (String s : lines) {
