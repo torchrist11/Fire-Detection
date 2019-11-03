@@ -26,7 +26,7 @@
 	<classpathentry kind="lib" path="targets/Preon32/tools/commander/jna.jar"/>
 	<classpathentry kind="lib" path="targets/Preon32/tools/commander/purejavacomm.jar"/>
 	<classpathentry kind="lib" path="targets/Preon32/tools/proguard.jar"/>
-	<classpathentry kind="lib" path="C:/Users/torch/Downloads/apache-ant-1.10.5-bin.zip"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/apache-ant-1.10.5.zip"/>
 	<classpathentry kind="lib" path="C:/Program Files/Java/apache-ant-1.10.5/lib/ant-launcher.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/Java/apache-ant-1.10.5/lib/ant.jar"/>
 	<classpathentry kind="output" path="bin"/>

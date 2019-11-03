@@ -14,7 +14,7 @@ public class BaseStation {
 	private int COMMON_CHANNEL = 24;
 	private int COMMON_PANID = 0xCAFE;
 	private int[] addresses = new int[] {
-			0xDACE, 0xAAAF,0xAADC, 0xCACF, 0xBCAF, 0xDACE
+			0xBAFE, 0xAAAF,0xAADC, 0xCACF, 0xBCAF, 0xDACE
 	};
 	private int ADDR_NODE1 = addresses[0];
 	static USART usart;

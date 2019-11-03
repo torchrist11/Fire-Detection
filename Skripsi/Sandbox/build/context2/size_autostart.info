@@ -33,6 +33,46 @@
 	10		sort([D)V
 	6		<init>()V
 
+6519		java/util/GregorianCalendar
+	1623		computeTime()V
+	794		fullFieldsCalc(JII)V
+	651		computeFields()V
+	614		roll(II)V
+	439		add(II)V
+	333		getActualMaximum(I)I
+	332		daysFromBaseYear(I)J
+	284		getOffset(J)I
+	144		cachedFieldsCheckAndGet(JJJII)V
+	134		<init>(IIIIII)V
+	133		<init>(Z)V
+	132		<init>(IIIII)V
+	130		<init>(III)V
+	129		<init>(Ljava/util/TimeZone;)V
+	126		setGregorianChange(Ljava/util/Date;)V
+	91		computeYearAndDay(JJ)I
+	52		getLeastMaximum(I)I
+	46		daysInYear(I)I
+	44		isLeapYear(I)Z
+	32		mod7(J)I
+	27		equals(Ljava/lang/Object;)Z
+	25		daysInMonth(ZI)I
+	25		daysInYear(ZI)I
+	23		clone()Ljava/lang/Object;
+	18		mod(II)I
+	16		hashCode()I
+	15		daysInMonth()I
+	15		julianError()I
+	15		roll(IZ)V
+	12		<init>(J)V
+	10		getGregorianChange()Ljava/util/Date;
+	10		setFirstDayOfWeek(I)V
+	10		setMinimalDaysInFirstWeek(I)V
+	8		<init>()V
+	7		getGreatestMinimum(I)I
+	7		getMaximum(I)I
+	7		getMinimum(I)I
+	6		getActualMinimum(I)I
+
 5432		com/virtenio/driver/device/at86rf231/AT86RF231
 	517		setState(I)V
 	216		transmitFrame0(Lcom/virtenio/radio/ieee_802_15_4/Frame;)I
@@ -386,6 +426,35 @@
 	7		<init>()V
 	2		size()I
 
+1382		java/util/SimpleTimeZone
+	258		toString()Ljava/lang/String;
+	154		setEndMode()V
+	149		equals(Ljava/lang/Object;)Z
+	149		hasSameRules(Ljava/util/TimeZone;)Z
+	146		setStartMode()V
+	69		<init>(ILjava/lang/String;IIIIIIIII)V
+	62		checkRange(III)V
+	54		hashCode()I
+	31		setEndRule(IIIIZ)V
+	31		setStartRule(IIIIZ)V
+	29		clone()Ljava/lang/Object;
+	24		<init>(ILjava/lang/String;IIIIIIIIIII)V
+	24		checkDay(II)V
+	23		getOffset(IIIIII)I
+	22		<init>(ILjava/lang/String;)V
+	21		<init>(ILjava/lang/String;IIIIIIII)V
+	21		setDSTSavings(I)V
+	21		setEndRule(III)V
+	21		setEndRule(IIII)V
+	21		setStartRule(III)V
+	21		setStartRule(IIII)V
+	10		getDSTSavings()I
+	9		setStartYear(I)V
+	5		setRawOffset(I)V
+	3		useDaylightTime()Z
+	2		getRawOffset()I
+	2		inDaylightTime(Ljava/util/Date;)Z
+
 1323		com/virtenio/driver/flash/GenericSPIFlash
 	173		read(I[BII)I
 	145		programPage(I[BII)V
@@ -422,6 +491,116 @@
 	2		getSectorSize()I
 	2		getBlockSize()I
 
+1091		java/util/HashMap
+	125		removeEntry(Ljava/lang/Object;)Ljava/util/HashMap$Entry;
+	120		putImpl(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	89		containsValue(Ljava/lang/Object;)Z
+	84		rehash(I)V
+	64		removeEntry(Ljava/util/HashMap$Entry;)V
+	62		calculateCapacity(I)I
+	58		putAllImpl(Ljava/util/Map;)V
+	56		<init>(IF)V
+	42		clone()Ljava/lang/Object;
+	36		getEntry(Ljava/lang/Object;)Ljava/util/HashMap$Entry;
+	34		findNonNullKeyEntry(Ljava/lang/Object;II)Ljava/util/HashMap$Entry;
+	24		createEntry(Ljava/lang/Object;ILjava/lang/Object;)Ljava/util/HashMap$Entry;
+	24		createHashedEntry(Ljava/lang/Object;II)Ljava/util/HashMap$Entry;
+	23		findNullKeyEntry()Ljava/util/HashMap$Entry;
+	22		clear()V
+	19		areEqualKeys(Ljava/lang/Object;Ljava/lang/Object;)Z
+	19		areEqualValues(Ljava/lang/Object;Ljava/lang/Object;)Z
+	17		<init>(Ljava/util/Map;)V
+	17		keySet()Ljava/util/Set;
+	17		values()Ljava/util/Collection;
+	16		containsKey(Ljava/lang/Object;)Z
+	16		get(Ljava/lang/Object;)Ljava/lang/Object;
+	16		remove(Ljava/lang/Object;)Ljava/lang/Object;
+	13		putAll(Ljava/util/Map;)V
+	12		computeThreshold()V
+	11		<init>(I)V
+	10		isEmpty()Z
+	9		entrySet()Ljava/util/Set;
+	9		rehash()V
+	7		<init>()V
+	7		put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	6		newElementArray(I)[Ljava/util/HashMap$Entry;
+	5		computeHashCode(Ljava/lang/Object;)I
+	2		size()I
+
+1054		java/util/Calendar
+	207		toString()Ljava/lang/String;
+	88		equals(Ljava/lang/Object;)Z
+	62		clone()Ljava/lang/Object;
+	61		getActualMaximum(I)I
+	61		getActualMinimum(I)I
+	59		set(II)V
+	48		compareTo(Ljava/util/Calendar;)I
+	42		<init>(Ljava/util/TimeZone;)V
+	40		roll(II)V
+	35		hashCode()I
+	34		setTimeInMillis(J)V
+	32		after(Ljava/lang/Object;)Z
+	32		before(Ljava/lang/Object;)Z
+	30		clear()V
+	25		complete()V
+	22		set(IIIII)V
+	19		set(III)V
+	17		clear(I)V
+	17		set(IIIIII)V
+	15		getTimeInMillis()J
+	12		getTime()Ljava/util/Date;
+	10		compareTo(Ljava/lang/Object;)I
+	9		getInstance(Ljava/util/TimeZone;)Ljava/util/Calendar;
+	9		setTime(Ljava/util/Date;)V
+	9		setTimeZone(Ljava/util/TimeZone;)V
+	8		<init>()V
+	8		get(I)I
+	8		getInstance()Ljava/util/Calendar;
+	5		setFirstDayOfWeek(I)V
+	5		setLenient(Z)V
+	5		setMinimalDaysInFirstWeek(I)V
+	4		internalGet(I)I
+	4		isSet(I)Z
+	3		getFirstDayOfWeek()I
+	3		getMinimalDaysInFirstWeek()I
+	3		getTimeZone()Ljava/util/TimeZone;
+	3		isLenient()Z
+
+813		java/util/TimeZone
+	256		getTimeZone(Ljava/lang/String;)Ljava/util/TimeZone;
+	169		formatTimeZoneName(Ljava/lang/String;I)Ljava/lang/String;
+	82		initializeAvailable()V
+	68		getAvailableIDs(I)[Ljava/lang/String;
+	58		parseNumber(Ljava/lang/String;I[I)I
+	31		getOffset(J)I
+	25		clone()Ljava/lang/Object;
+	23		getDefault()Ljava/util/TimeZone;
+	23		hasSameRules(Ljava/util/TimeZone;)Z
+	21		setDefault(Ljava/util/TimeZone;)V
+	18		setID(Ljava/lang/String;)V
+	16		getAvailableIDs()[Ljava/lang/String;
+	15		getDSTSavings()I
+	6		<init>()V
+	2		getID()Ljava/lang/String;
+
+807		java/util/AbstractMap
+	178		equals(Ljava/lang/Object;)Z
+	158		toString()Ljava/lang/String;
+	88		remove(Ljava/lang/Object;)Ljava/lang/Object;
+	80		get(Ljava/lang/Object;)Ljava/lang/Object;
+	64		containsKey(Ljava/lang/Object;)Z
+	64		containsValue(Ljava/lang/Object;)Z
+	41		putAll(Ljava/util/Map;)V
+	36		hashCode()I
+	20		clone()Ljava/lang/Object;
+	17		keySet()Ljava/util/Set;
+	17		values()Ljava/util/Collection;
+	13		isEmpty()Z
+	9		put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	8		clear()V
+	8		size()I
+	6		<init>()V
+
 740		com/virtenio/misc/PropertyHelper
 	122		makeKey(Ljava/lang/String;ILjava/lang/String;)Ljava/lang/String;
 	114		getBool(Ljava/lang/String;)Z
@@ -438,6 +617,11 @@
 	16		getInt(Ljava/lang/String;I)I
 	14		getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 	6		<init>()V
+
+668		Node
+	567		Sense()V
+	90		<init>()V
+	11		main([Ljava/lang/String;)V
 
 650		com/virtenio/driver/device/ADT7410
 	121		readValue(II)I
@@ -496,11 +680,6 @@
 	7		startBothConversion()V
 	6		getPressureRaw()I
 	6		getTemperatureRaw()I
-
-596		Node
-	495		Sense()V
-	90		<init>()V
-	11		main([Ljava/lang/String;)V
 
 596		com/virtenio/net/NetAddress
 	138		<init>(Ljava/lang/String;)V
@@ -698,6 +877,13 @@
 	9		unbindTo(I)V
 	8		unbind()V
 
+242		java/util/HashMap$AbstractMapIterator
+	84		remove()V
+	81		makeNext()V
+	37		hasNext()Z
+	24		<init>(Ljava/util/HashMap;)V
+	16		checkConcurrentMod()V
+
 235		java/util/AbstractList$FullListIterator
 	76		add(Ljava/lang/Object;)V
 	56		previous()Ljava/lang/Object;
@@ -756,6 +942,47 @@
 	8		getType()I
 	6		<init>()V
 
+195		stringFormatTime
+	189		SFTime(J)Ljava/lang/String;
+	6		<init>()V
+
+191		java/util/AbstractSet
+	86		removeAll(Ljava/util/Collection;)Z
+	61		equals(Ljava/lang/Object;)Z
+	39		hashCode()I
+	5		<init>()V
+
+190		java/util/MapEntry
+	79		equals(Ljava/lang/Object;)Z
+	30		toString()Ljava/lang/String;
+	26		hashCode()I
+	19		clone()Ljava/lang/Object;
+	14		<init>(Ljava/lang/Object;Ljava/lang/Object;)V
+	10		<init>(Ljava/lang/Object;)V
+	8		setValue(Ljava/lang/Object;)Ljava/lang/Object;
+	2		getKey()Ljava/lang/Object;
+	2		getValue()Ljava/lang/Object;
+
+182		java/util/AbstractMap$SimpleImmutableEntry
+	79		equals(Ljava/lang/Object;)Z
+	30		toString()Ljava/lang/String;
+	26		hashCode()I
+	20		<init>(Ljava/util/Map$Entry;)V
+	14		<init>(Ljava/lang/Object;Ljava/lang/Object;)V
+	9		setValue(Ljava/lang/Object;)Ljava/lang/Object;
+	2		getKey()Ljava/lang/Object;
+	2		getValue()Ljava/lang/Object;
+
+181		java/util/AbstractMap$SimpleEntry
+	79		equals(Ljava/lang/Object;)Z
+	30		toString()Ljava/lang/String;
+	26		hashCode()I
+	20		<init>(Ljava/util/Map$Entry;)V
+	14		<init>(Ljava/lang/Object;Ljava/lang/Object;)V
+	8		setValue(Ljava/lang/Object;)Ljava/lang/Object;
+	2		getKey()Ljava/lang/Object;
+	2		getValue()Ljava/lang/Object;
+
 179		java/util/AbstractList$SimpleListIterator
 	83		remove()V
 	56		next()Ljava/lang/Object;
@@ -773,6 +1000,28 @@
 	14		hasPrevious()Z
 	7		nextIndex()I
 	6		set(Ljava/lang/Object;)V
+
+139		java/util/HashMap$HashMapEntrySet
+	40		remove(Ljava/lang/Object;)Z
+	39		valuesEq(Ljava/util/HashMap$Entry;Ljava/util/Map$Entry;)Z
+	31		contains(Ljava/lang/Object;)Z
+	9		<init>(Ljava/util/HashMap;)V
+	9		iterator()Ljava/util/Iterator;
+	5		clear()V
+	4		size()I
+	2		hashMap()Ljava/util/HashMap;
+
+136		java/util/Date
+	32		equals(Ljava/lang/Object;)Z
+	24		compareTo(Ljava/util/Date;)I
+	15		after(Ljava/util/Date;)Z
+	15		before(Ljava/util/Date;)Z
+	11		<init>(J)V
+	11		hashCode()I
+	10		compareTo(Ljava/lang/Object;)I
+	9		<init>()V
+	6		setTime(J)V
+	3		getTime()J
 
 131		com/virtenio/driver/flash/FlashInputStream
 	57		read([BII)I
@@ -845,6 +1094,11 @@
 	26		read()I
 	10		<init>(Lcom/virtenio/driver/spi/SPI;)V
 
+61		java/util/HashMap$Entry
+	28		clone()Ljava/lang/Object;
+	22		<init>(Ljava/lang/Object;Ljava/lang/Object;)V
+	11		<init>(Ljava/lang/Object;I)V
+
 58		com/virtenio/driver/spi/SPIChipSelector
 	14		<init>(Lcom/virtenio/driver/spi/SPI;Lcom/virtenio/driver/gpio/GPIO;)V
 	14		open()V
@@ -869,6 +1123,33 @@
 	44		<init>(Lcom/virtenio/driver/spi/SPI;Lcom/virtenio/driver/gpio/GPIO;)V
 	6		eraseSector(I)V
 
+50		java/util/HashMap$1
+	16		remove(Ljava/lang/Object;)Z
+	9		<init>(Ljava/util/HashMap;)V
+	9		iterator()Ljava/util/Iterator;
+	6		contains(Ljava/lang/Object;)Z
+	5		size()I
+	5		clear()V
+
+46		java/util/AbstractMap$2$1
+	24		<init>(Ljava/util/AbstractMap$2;)V
+	12		next()Ljava/lang/Object;
+	5		hasNext()Z
+	5		remove()V
+
+46		java/util/AbstractMap$1$1
+	24		<init>(Ljava/util/AbstractMap$1;)V
+	12		next()Ljava/lang/Object;
+	5		hasNext()Z
+	5		remove()V
+
+34		java/util/HashMap$2
+	9		<init>(Ljava/util/HashMap;)V
+	9		iterator()Ljava/util/Iterator;
+	6		contains(Ljava/lang/Object;)Z
+	5		size()I
+	5		clear()V
+
 30		com/virtenio/driver/NativeDeviceDriver
 	10		<init>(I)V
 	6		<init>()V
@@ -876,6 +1157,18 @@
 	5		clearLastError()V
 	2		getInstanceId()I
 	2		getLastError()I
+
+29		java/util/AbstractMap$2
+	9		<init>(Ljava/util/AbstractMap;)V
+	9		iterator()Ljava/util/Iterator;
+	6		contains(Ljava/lang/Object;)Z
+	5		size()I
+
+29		java/util/AbstractMap$1
+	9		<init>(Ljava/util/AbstractMap;)V
+	9		iterator()Ljava/util/Iterator;
+	6		contains(Ljava/lang/Object;)Z
+	5		size()I
 
 28		com/virtenio/misc/CRC16
 	11		compute(I[BI)I
@@ -930,11 +1223,24 @@
 	6		<init>(I)V
 	6		<init>(Ljava/lang/Throwable;)V
 
+17		java/util/HashMap$EntryIterator
+	6		<init>(Ljava/util/HashMap;)V
+	6		next()Ljava/util/Map$Entry;
+	5		next()Ljava/lang/Object;
+
 16		com/virtenio/preon32/node/Node14
 	16		<init>(Ljava/lang/String;)V
 
 16		com/virtenio/preon32/node/Node13
 	16		<init>(Ljava/lang/String;)V
+
+14		java/util/HashMap$ValueIterator
+	8		next()Ljava/lang/Object;
+	6		<init>(Ljava/util/HashMap;)V
+
+14		java/util/HashMap$KeyIterator
+	8		next()Ljava/lang/Object;
+	6		<init>(Ljava/util/HashMap;)V
 
 13		java/util/ConcurrentModificationException
 	7		<init>(Ljava/lang/String;)V

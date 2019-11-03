@@ -29,12 +29,13 @@ public class Control {
 	public static File fileAkhir;
 	static extract e = new extract();
 	public static ArrayList<String> temp = new ArrayList<String>();
-	private Semaphore /* used */ notused;
+	stringFormatTime sfTime = new stringFormatTime();
+//	private Semaphore /* used */ notused;
 
 	public Control() {
 
 		// used = new Semaphore(0);
-		notused = new Semaphore(1);
+//		notused = new Semaphore(1);
 	}
 
 	public synchronized void writeToFile(File file, String folder, BufferedInputStream in) throws Exception {
@@ -64,38 +65,41 @@ public class Control {
 							s = new String(buffer);
 							String[] subStr = s.split("#");
 							for (String w : subStr) {
-								if (count == 0) {
-									if (w.startsWith("(")) {
-										writer.write(w, 0, w.length());
-										writer.append(tanda);
-										writer.newLine();
-										count++;
+								if (w.startsWith("(") != true) {
+
+								} else {
+									if (count == 0) {
+										if (w.startsWith("(")) {
+											writer.write(w, 0, w.length());
+											writer.append(tanda);
+											writer.newLine();
+											count++;
+											writer.close();
+											FileWriter fw = new FileWriter(path, true);
+											writer = new BufferedWriter(fw);
+										}
+									} else {
+										if (w.startsWith("(")) {
+											writer.write(w, 0, w.length());
+											writer.append(tanda);
+											writer.newLine();
+											count++;
+										}
+									}
+									if (count == 100) {
+//										notused.waits();
 										writer.close();
+//										notused.signals();
 										FileWriter fw = new FileWriter(path, true);
 										writer = new BufferedWriter(fw);
+										readAkhir = new BufferedReader(new FileReader(path));
+										try {
+											read();
+										} catch (Exception e) {
+											e.printStackTrace();
+										}
+										count = 0;
 									}
-								} else {
-									if (w.startsWith("(")) {
-										writer.write(w, 0, w.length());
-										writer.append(tanda);
-										writer.newLine();
-										count++;
-									}
-								}
-								if (count == 5) {
-									notused.waits();
-									writer.close();
-									notused.signals();
-									readAkhir = new BufferedReader(new FileReader(path));
-									try {
-										read();
-									} catch (Exception e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-									FileWriter fw = new FileWriter(path, true);
-									writer = new BufferedWriter(fw);
-									count = 0;
 								}
 							}
 						}
@@ -159,8 +163,7 @@ public class Control {
 	public void init() throws Exception {
 		String a = "true";
 		try {
-			stringFormatTime sfTime = new stringFormatTime();
-			Preon32Helper nodeHelper = new Preon32Helper("COM7", 115200);
+			Preon32Helper nodeHelper = new Preon32Helper("COM4", 115200);
 			DataConnection conn = nodeHelper.runModule("BaseStation");
 
 			BufferedInputStream in = new BufferedInputStream(conn.getInputStream());
@@ -215,7 +218,6 @@ public class Control {
 					break;
 				}
 				}
-
 			} while (choiceentry != 0);
 
 		} catch (Exception e) {
@@ -247,12 +249,12 @@ public class Control {
 		BufferedReader br = new BufferedReader(fr);
 
 		try {
-			notused.waits();
+//			notused.waits();
 			while ((tempawal = readAkhir.readLine()) != null) {
 				temp.add(tempawal);
 			}
 			readAkhir.close();
-			notused.signals();
+//			notused.signals();
 			e.inside();
 			while ((line = br.readLine()) != null) {
 				if (line.contains("belum"))
