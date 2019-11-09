@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import svm.svm_predict;
 
 public class Control {
 	Calendar cal = Calendar.getInstance();
@@ -26,17 +27,11 @@ public class Control {
 	long msecs = cal.getTimeInMillis();
 	static File file;
 	String path;
-	public static File fileAkhir;
+	public static File fileExtract;
 	static extract e = new extract();
 	public static ArrayList<String> temp = new ArrayList<String>();
 	stringFormatTime sfTime = new stringFormatTime();
-//	private Semaphore /* used */ notused;
-
-	public Control() {
-
-		// used = new Semaphore(0);
-//		notused = new Semaphore(1);
-	}
+//	svm_predict p = new svm_predict();
 
 	public synchronized void writeToFile(File file, String folder, BufferedInputStream in) throws Exception {
 		new Thread() {
@@ -44,7 +39,7 @@ public class Control {
 			String s;
 			long count = 0;
 			File newFolder = new File(folder);
-			String tanda = ";belum";
+			String tanda = ";[0]";
 
 			public void run() {
 				// disini check apakah sdh ada direktori hari ini
@@ -95,6 +90,7 @@ public class Control {
 										readAkhir = new BufferedReader(new FileReader(path));
 										try {
 											read();
+//											p.predict(fileAkhir, x);
 										} catch (Exception e) {
 											e.printStackTrace();
 										}
@@ -186,17 +182,17 @@ public class Control {
 				case 1: {
 					// System.out.println("Sense: Temperature [°C], Humidity [Rh], Pressure [kPa]");
 					if (a.equalsIgnoreCase("true")) {
-						int akhir = 1;
-						fileAkhir = new File(
-								"C:\\Users\\torch\\eclipse-workspace\\Prog\\Hasil Akhir\\Akhir" + akhir + ".txt");
-						boolean exist = fileAkhir.exists();
+						int nomorFile = 1;
+						fileExtract = new File(
+								"C:\\Users\\torch\\eclipse-workspace\\Prog\\Hasil Akhir\\Akhir_" + nomorFile + ".txt");
+						boolean exist = fileExtract.exists();
 						try {
 							if (exist == true) {
 								while (exist == true) {
-									akhir++;
-									fileAkhir = new File("C:\\Users\\torch\\eclipse-workspace\\Prog\\Hasil Akhir\\Akhir"
-											+ akhir + ".txt");
-									exist = fileAkhir.exists();
+									nomorFile++;
+									fileExtract = new File("C:\\Users\\torch\\eclipse-workspace\\Prog\\Hasil Akhir\\Akhir_"
+											+ nomorFile + ".txt");
+									exist = fileExtract.exists();
 								}
 							}
 						} catch (Exception e) {
@@ -257,8 +253,8 @@ public class Control {
 //			notused.signals();
 			e.inside();
 			while ((line = br.readLine()) != null) {
-				if (line.contains("belum"))
-					line = line.replace("belum", "sudah");
+				if (line.contains("[0]"))
+					line = line.replace("[0]", "[1]");
 				lines.add(line);
 			}
 

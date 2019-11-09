@@ -69,9 +69,15 @@ public class extract {
 //	}
 
 	public void inside() {
+		int awal = 0;
 		Control ctrl = new Control();
 		try {
-			writer = new BufferedWriter(new FileWriter(Control.fileAkhir));
+			writer = new BufferedWriter(new FileWriter(Control.fileExtract));
+			if (awal == 0) {
+				writer.write(
+						"Node Sensor;max Temperature; min Temperature; rata-rata Temperature; max Humidity; min Humidity; rata-rata Humidity; max Pressure; min Pressure; rata-rata Pressure");
+				awal = 1;
+			}
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -80,7 +86,7 @@ public class extract {
 		try {
 			for (int d = 0; d < ctrl.temp.size(); d++) {
 				temp2 = ctrl.temp.get(d).split(";");
-				if (temp2[6].equals("belum")) {
+				if (temp2[6].equals("[0]")) {
 					idx = temp2[0];
 					waktu = temp2[2].split(":");
 					counterwaktu = Integer.parseInt(waktu[2]);
