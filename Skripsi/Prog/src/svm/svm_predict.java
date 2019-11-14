@@ -3,15 +3,14 @@ package svm;
 import libsvm.*;
 import java.io.*;
 import java.util.*;
+import Program.Control;
 
 public class svm_predict {
 	private static BufferedReader reader;
+	private static BufferedReader readerExtract;
 	private static BufferedWriter writer;
-	
-//	private static svm_print_interface svm_print_null = new svm_print_interface() {
-//		public void print(String s) {
-//		}
-//	};
+	private static File hasilAkhir;
+	private static int count = 0;
 
 	private static svm_print_interface svm_print_stdout = new svm_print_interface() {
 		public void print(String s) {
@@ -21,7 +20,7 @@ public class svm_predict {
 
 	private static svm_print_interface svm_print_string = svm_print_stdout;
 
-	static void info(String s) {
+	public static void info(String s) {
 		svm_print_string.print(s);
 	}
 
@@ -33,50 +32,69 @@ public class svm_predict {
 		return Integer.parseInt(s);
 	}
 
-	static void predict(File data, /*DataOutputStream output,*/ svm_model model /* , int predict_probability */)
-			throws IOException {
+	public static void predict(File data,
+			/* DataOutputStream output, */ svm_model model /* , int predict_probability */) throws IOException {
 		/* predict_probability = 0 */
+
+		if (count == 0) {
+			int nomorFileAkhir = 1;
+			hasilAkhir = new File(
+					"C:\\Users\\torch\\eclipse-workspace\\Prog\\Hasil Akhir\\Akhir_" + nomorFileAkhir + ".txt");
+			boolean exist = hasilAkhir.exists();
+			try {
+				if (exist == true) {
+					while (exist == true) {
+						nomorFileAkhir++;
+						hasilAkhir = new File("C:\\Users\\torch\\eclipse-workspace\\Prog\\Hasil Akhir\\Akhir_"
+								+ nomorFileAkhir + ".txt");
+						exist = hasilAkhir.exists();
+					}
+				}
+				count++;
+			} catch (Exception e) {
+
+			}
+		}
 
 		int correct = 0;
 		int total = 0;
 		double error = 0;
 		double sump = 0, sumt = 0, sumpp = 0, sumtt = 0, sumpt = 0;
 		reader = new BufferedReader(new FileReader(data));
-		FileWriter fw = new FileWriter(data);
+		readerExtract = new BufferedReader(new FileReader(Control.fileExtract));
+		FileWriter fw = new FileWriter(hasilAkhir,true);
 		writer = new BufferedWriter(fw);
+		List<String> temp = new ArrayList<String>();
+		List<String> extractCounter = new ArrayList<String>();
+		List<String> change = new ArrayList<String>();
+		String line = "";
+		String line2 = "";
+		String line3 = "";
+		String line4 = "";
+		String line5 = "";
+		int count2 = 0;
+		int count3 = 0;
 
 		int svm_type = svm.svm_get_svm_type(model);
-		int nr_class = svm.svm_get_nr_class(model);
-//		double[] prob_estimates = null;
 
-//		if (predict_probability == 1) {
-//			if (svm_type == svm_parameter.EPSILON_SVR || svm_type == svm_parameter.NU_SVR) {
-//				svm_predict.info(
-//						"Prob. model for test data: target value = predicted value + z,\nz: Laplace distribution e^(-|z|/sigma)/(2sigma),sigma="
-//								+ svm.svm_get_svr_probability(model) + "\n");
-//			} else {
-//				int[] labels = new int[nr_class];
-//				svm.svm_get_labels(model, labels);
-//				prob_estimates = new double[nr_class];
-//				output.writeBytes("labels");
-//				for (int j = 0; j < nr_class; j++)
-//					output.writeBytes(" " + labels[j]);
-//				output.writeBytes("\n");
+		while ((line = reader.readLine()) != null) {
+			if (count2 == 0) {
+				while ((line2 = readerExtract.readLine()) != null) {
+					String[] split1 = line2.split(";");
+					if (split1[11].equals("[0]")) {
+						extractCounter.add(line2);
+					} else {
+
+					}
+				}
+			}
+			line3 = extractCounter.get(count2);
+			count2++;
+			String[] splitter = line3.split(";");
+//			while (!splitter[11].equals("[0]")) {
+//				line3 = readerExtract.readLine();
+//				splitter = line3.split(";");
 //			}
-//		}
-
-		int[] labels = new int[nr_class];
-		svm.svm_get_labels(model, labels);
-//		prob_estimates = new double[nr_class];
-		writer.write("labels");
-		for (int j = 0; j < nr_class; j++)
-			writer.write(" " + labels[j]);
-		writer.newLine();
-		
-		while (true) {
-			String line = reader.readLine();
-			if (line == null)
-				break;
 
 			StringTokenizer st = new StringTokenizer(line, " \t\n\r\f:");
 
@@ -90,19 +108,13 @@ public class svm_predict {
 			}
 
 			double predict_label;
-//			if (predict_probability == 1 && (svm_type == svm_parameter.C_SVC || svm_type == svm_parameter.NU_SVC)) {
-//				predict_label = svm.svm_predict_probability(model, x, prob_estimates);
-//				output.writeBytes(predict_label + " ");
-//				for (int j = 0; j < nr_class; j++)
-//					output.writeBytes(prob_estimates[j] + " ");
-//				output.writeBytes("\n");
-//			} else {
-//				predict_label = svm.svm_predict(model, x);
-//				output.writeBytes(predict_label + "\n");
-//			}
-			
+
 			predict_label = svm.svm_predict(model, x);
-			writer.write(predict_label + "\n");
+			int hasilPredict = (int) predict_label;
+			for (int i = 0; i < splitter.length - 1; i++) {
+				writer.write(splitter[i] + ";");
+			}
+			writer.write(hasilPredict + "\n");
 
 			if (predict_label == target_label)
 				++correct;
@@ -113,8 +125,47 @@ public class svm_predict {
 			sumtt += target_label * target_label;
 			sumpt += predict_label * target_label;
 			++total;
+
+			FileReader fr = new FileReader(Control.fileExtract);
+			BufferedReader br = new BufferedReader(fr);
+
+			if (count3 == 0) {
+				while ((line4 = br.readLine()) != null) {
+					String[] split2 = line4.split(";");
+					if (split2[11].equals("[0]")) {
+						change.add(line4);
+					} else {
+
+					}
+				}
+			}
+			line5 = change.get(count3);
+			count3++;
+			if (line5.contains("[0]")) {
+				line5 = line5.replace("[0]", "[1]");
+				temp.add(line5);
+			}
+
+			fr.close();
+			br.close();
+
+			FileWriter fw2 = new FileWriter(Control.fileExtract);
+			BufferedWriter out = new BufferedWriter(fw2);
+			for (String s : temp) {
+				out.write(s);
+				out.newLine();
+			}
+			out.flush();
+			out.close();
+
 		}
-		if (svm_type == svm_parameter.EPSILON_SVR || svm_type == svm_parameter.NU_SVR) {
+		writer.close();
+		extractCounter.clear();
+		temp.clear();
+
+		if (svm_type == svm_parameter.EPSILON_SVR || svm_type == svm_parameter.NU_SVR)
+
+		{
 			svm_predict.info("Mean squared error = " + error / total + " (regression)\n");
 			svm_predict
 					.info("Squared correlation coefficient = "
@@ -125,13 +176,6 @@ public class svm_predict {
 			svm_predict.info("Accuracy = " + (double) correct / total * 100 + "% (" + correct + "/" + total
 					+ ") (classification)\n");
 	}
-
-//	private static void exit_with_help() {
-//		System.err.print("usage: svm_predict [options] test_file model_file output_file\n" + "options:\n"
-//				+ "-b probability_estimates: whether to predict probability estimates, 0 or 1 (default 0); one-class SVM not supported yet\n"
-//				+ "-q : quiet mode (no outputs)\n");
-//		System.exit(1);
-//	}
 
 	public static void main(String argv[]) throws IOException {
 //		int i, predict_probability = 0;

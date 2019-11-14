@@ -1,10 +1,10 @@
-import java.io.IOException;
+//import java.io.IOException;
 import java.io.OutputStream;
 import com.virtenio.driver.usart.NativeUSART;
 import com.virtenio.driver.usart.USART;
 import com.virtenio.driver.usart.USARTException;
 import com.virtenio.driver.usart.USARTParams;
-import com.virtenio.io.Console;
+//import com.virtenio.io.Console;
 import com.virtenio.preon32.examples.common.USARTConstants;import com.virtenio.radio.ieee_802_15_4.Frame;
 import com.virtenio.driver.device.at86rf231.*;
 import com.virtenio.preon32.examples.common.RadioInit;
@@ -48,17 +48,21 @@ public class BaseStation {
 	public static void Run() throws Exception{
 		//System.out.println("Start");
 		
-		do {
-			pilihan=BaseStation.usart.read();
-//			pilihan =  c.readInt("ASDF");
-			switch(pilihan) {
-				case 1:{
-					//System.out.print("Salah sini");
-					bs.Receive();
-					break;
-				}
-			}
-		}while(true);
+		while(true) {
+			bs.Receive();
+			break;
+		}
+		
+//		do {
+//			pilihan=BaseStation.usart.read();
+//			switch(pilihan) {
+//				case 1:{
+//					//System.out.print("Salah sini");
+//					bs.Receive();
+//					break;
+//				}
+//			}
+//		}while(true);
 	}
 	
 	public void Receive() throws Exception {

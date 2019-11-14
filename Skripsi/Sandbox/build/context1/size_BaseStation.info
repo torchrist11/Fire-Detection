@@ -618,16 +618,6 @@
 	10		set(ILjava/lang/Object;)Ljava/lang/Object;
 	3		size()I
 
-267		BaseStation
-	82		<init>()V
-	42		Run()V
-	40		Receive()V
-	36		configUSART()Lcom/virtenio/driver/usart/USART;
-	32		main([Ljava/lang/String;)V
-	22		write()V
-	8		useUSART()V
-	5		access$000()Ljava/io/OutputStream;
-
 255		com/virtenio/vm/event/AsyncEvent
 	68		addHandler(Lcom/virtenio/vm/event/AsyncEventHandler;)V
 	29		removeHandler(Lcom/virtenio/vm/event/AsyncEventHandler;)V
@@ -649,6 +639,16 @@
 	10		hasPrevious()Z
 	4		nextIndex()I
 	2		previousIndex()I
+
+233		BaseStation
+	82		<init>()V
+	40		Receive()V
+	36		configUSART()Lcom/virtenio/driver/usart/USART;
+	32		main([Ljava/lang/String;)V
+	22		write()V
+	8		useUSART()V
+	8		Run()V
+	5		access$000()Ljava/io/OutputStream;
 
 226		com/virtenio/driver/gpio/NativeGPIO
 	39		open(II)V
