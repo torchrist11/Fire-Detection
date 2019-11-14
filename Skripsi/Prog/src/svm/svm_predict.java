@@ -62,18 +62,15 @@ public class svm_predict {
 		double sump = 0, sumt = 0, sumpp = 0, sumtt = 0, sumpt = 0;
 		reader = new BufferedReader(new FileReader(data));
 		readerExtract = new BufferedReader(new FileReader(Control.fileExtract));
-		FileWriter fw = new FileWriter(hasilAkhir,true);
+		FileWriter fw = new FileWriter(hasilAkhir, true);
 		writer = new BufferedWriter(fw);
 		List<String> temp = new ArrayList<String>();
 		List<String> extractCounter = new ArrayList<String>();
-		List<String> change = new ArrayList<String>();
 		String line = "";
 		String line2 = "";
 		String line3 = "";
 		String line4 = "";
-		String line5 = "";
 		int count2 = 0;
-		int count3 = 0;
 
 		int svm_type = svm.svm_get_svm_type(model);
 
@@ -125,43 +122,32 @@ public class svm_predict {
 			sumtt += target_label * target_label;
 			sumpt += predict_label * target_label;
 			++total;
-
-			FileReader fr = new FileReader(Control.fileExtract);
-			BufferedReader br = new BufferedReader(fr);
-
-			if (count3 == 0) {
-				while ((line4 = br.readLine()) != null) {
-					String[] split2 = line4.split(";");
-					if (split2[11].equals("[0]")) {
-						change.add(line4);
-					} else {
-
-					}
-				}
-			}
-			line5 = change.get(count3);
-			count3++;
-			if (line5.contains("[0]")) {
-				line5 = line5.replace("[0]", "[1]");
-				temp.add(line5);
-			}
-
-			fr.close();
-			br.close();
-
-			FileWriter fw2 = new FileWriter(Control.fileExtract);
-			BufferedWriter out = new BufferedWriter(fw2);
-			for (String s : temp) {
-				out.write(s);
-				out.newLine();
-			}
-			out.flush();
-			out.close();
-
 		}
 		writer.close();
+
+		FileReader fr = new FileReader(Control.fileExtract);
+		BufferedReader br = new BufferedReader(fr);
+
+		while ((line4 = br.readLine()) != null) {
+			if (line4.contains("[0]")) {
+				line4 = line4.replace("[0]", "[1]");
+			}
+			temp.add(line4);
+		}
+
+		fr.close();
+		br.close();
+		
+		FileWriter fw2 = new FileWriter(Control.fileExtract);
+		BufferedWriter out = new BufferedWriter(fw2);
+		for (String s : temp) {
+			out.write(s);
+			out.newLine();
+		}
+		out.flush();
+		out.close();
+		
 		extractCounter.clear();
-		temp.clear();
 
 		if (svm_type == svm_parameter.EPSILON_SVR || svm_type == svm_parameter.NU_SVR)
 
