@@ -3,9 +3,6 @@
 import com.virtenio.preon32.examples.common.RadioInit;
 import com.virtenio.radio.ieee_802_15_4.Frame;
 import com.virtenio.vm.Time;
-
-import java.util.Calendar;
-
 import com.virtenio.driver.device.ADT7410;
 import com.virtenio.driver.device.MPL115A2;
 import com.virtenio.driver.device.SHT21;
@@ -22,7 +19,7 @@ public class Node {
 	private int COMMON_CHANNEL = 24;
 	private int COMMON_PANID = 0xCAFE;
 	private int ADDR_NODE1 = addresses[0];
-	private int ADDR_NODE2 = addresses[4];
+	private int ADDR_NODE2 = addresses[1];
 	private NativeI2C i2c;
 	private ADT7410 temperatureSensor;
 	private SHT21 humiditySensor;
@@ -33,8 +30,7 @@ public class Node {
 		
 
 		stringFormatTime time = new stringFormatTime();
-		Calendar cal = Calendar.getInstance();
-		
+//		Calendar cal = Calendar.getInstance();
 		
 		i2c = NativeI2C.getInstance(1);
 		i2c.open(I2C.DATA_RATE_400);
@@ -84,12 +80,13 @@ public class Node {
 			//System.out.print("Humidity: " + rh + " [Rh] ");
 			
 			pressureSensor.startBothConversion();
-			Thread.sleep(MPL115A2.BOTH_CONVERSION_TIME);
+//			Thread.sleep(MPL115A2.BOTH_CONVERSION_TIME);
+			Thread.sleep(100);
 			int pressurePr = pressureSensor.getPressureRaw();
 			int tempRaw = pressureSensor.getTemperatureRaw();
 			float pressure = pressureSensor.compensate(pressurePr, tempRaw);
 			msg += pressure;
-			Thread.sleep(1000 - MPL115A2.BOTH_CONVERSION_TIME);
+//			Thread.sleep(1000 - MPL115A2.BOTH_CONVERSION_TIME);
 			
 			boolean isOK = false;
 			while(!isOK) {

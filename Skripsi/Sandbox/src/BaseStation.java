@@ -23,7 +23,6 @@ public class BaseStation {
 	static int pilihan;
 //	public String[] temp =new String[1];
 //	public String akhir;
-
 //	static Console c = new Console();
 	
 	
@@ -107,23 +106,21 @@ public class BaseStation {
 		reader.start();
 	}
 	
-	public void write() throws USARTException {
-		
-		switch(pilihan) {
-			case 1:{
+//	public void write() throws USARTException {
+//		
+//		switch(pilihan) {
+//			case 1:{
 //				akhir = temp[0];
-				try {
-					//System.out.println(akhir);
+//				try {
 //					out.write(akhir.getBytes(), 0, akhir.length());
-				} catch (Exception e) {
-					//System.out.print("b");
-				}
-			}
-		}
-	}
+//				} catch (Exception e) {
+//					
+//				}
+//			}
+//		}
+//	}
 	
 	public static void main(String[] args) throws Exception{
-		//System.out.println("ASF");
 		try {
 			useUSART();
 			out = usart.getOutputStream();
@@ -132,6 +129,5 @@ public class BaseStation {
 			
 		}
 		Run();
-		//System.out.println("sASF");
 	}
 }

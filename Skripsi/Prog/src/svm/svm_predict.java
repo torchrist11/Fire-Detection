@@ -55,11 +55,6 @@ public class svm_predict {
 
 			}
 		}
-
-		int correct = 0;
-		int total = 0;
-		double error = 0;
-		double sump = 0, sumt = 0, sumpp = 0, sumtt = 0, sumpt = 0;
 		reader = new BufferedReader(new FileReader(data));
 		readerExtract = new BufferedReader(new FileReader(Control.fileExtract));
 		FileWriter fw = new FileWriter(hasilAkhir, true);
@@ -71,8 +66,6 @@ public class svm_predict {
 		String line3 = "";
 		String line4 = "";
 		int count2 = 0;
-
-		int svm_type = svm.svm_get_svm_type(model);
 
 		while ((line = reader.readLine()) != null) {
 			if (count2 == 0) {
@@ -88,14 +81,8 @@ public class svm_predict {
 			line3 = extractCounter.get(count2);
 			count2++;
 			String[] splitter = line3.split(";");
-//			while (!splitter[11].equals("[0]")) {
-//				line3 = readerExtract.readLine();
-//				splitter = line3.split(";");
-//			}
 
 			StringTokenizer st = new StringTokenizer(line, " \t\n\r\f:");
-
-			double target_label = atof(st.nextToken());
 			int m = st.countTokens() / 2;
 			svm_node[] x = new svm_node[m];
 			for (int j = 0; j < m; j++) {
@@ -108,20 +95,14 @@ public class svm_predict {
 
 			predict_label = svm.svm_predict(model, x);
 			int hasilPredict = (int) predict_label;
+			String a ="";
 			for (int i = 0; i < splitter.length - 1; i++) {
-				writer.write(splitter[i] + ";");
+				a+=splitter[i]+";";
 			}
-			writer.write(hasilPredict + "\n");
-
-			if (predict_label == target_label)
-				++correct;
-			error += (predict_label - target_label) * (predict_label - target_label);
-			sump += predict_label;
-			sumt += target_label;
-			sumpp += predict_label * predict_label;
-			sumtt += target_label * target_label;
-			sumpt += predict_label * target_label;
-			++total;
+			String hasil ="";
+			hasil = a + hasilPredict;
+			writer.write(hasil + "\n");
+			System.out.println(hasil);
 		}
 		writer.close();
 
@@ -148,19 +129,6 @@ public class svm_predict {
 		out.close();
 		
 		extractCounter.clear();
-
-		if (svm_type == svm_parameter.EPSILON_SVR || svm_type == svm_parameter.NU_SVR)
-
-		{
-			svm_predict.info("Mean squared error = " + error / total + " (regression)\n");
-			svm_predict
-					.info("Squared correlation coefficient = "
-							+ ((total * sumpt - sump * sumt) * (total * sumpt - sump * sumt))
-									/ ((total * sumpp - sump * sump) * (total * sumtt - sumt * sumt))
-							+ " (regression)\n");
-		} else
-			svm_predict.info("Accuracy = " + (double) correct / total * 100 + "% (" + correct + "/" + total
-					+ ") (classification)\n");
 	}
 
 	public static void main(String argv[]) throws IOException {

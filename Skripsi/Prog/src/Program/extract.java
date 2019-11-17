@@ -1,13 +1,11 @@
 package Program;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class extract {
-//	static BufferedReader read;
-//	static BufferedWriter writer;
 	private BufferedWriter writer;
 	private BufferedWriter writerX;
 	private static String[] alamat;
@@ -28,92 +26,148 @@ public class extract {
 	private ArrayList<Double> node5P = new ArrayList<Double>();
 	String[] temp2;
 	String[] waktu;
-	int hitungextract1 = 0;
-	int hitungextract2 = 0;
 	String idx = "";
-//	int awal = 0;
-	Random rand = new Random();
+	int counter1 = 2;
+	int counter2 = 2;
+	int counter3 = 2;
+	int counter4 = 2;
+	int counter5 = 2;
+	int counter6 = 2;
+	int counter7 = 2;
+	int counter8 = 2;
+	int counter9 = 2;
+	int counter10 = 2;
 
-//	public static void main(String[] args) {
-//		
-//		try {
-//			fiturextract();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//
-//	}
-//	
-//	static void fiturextract() throws Exception {
-//		String tempawal;
-//		int akhir = 1;
-//		File fileAkhir = new File("C:\\Users\\torch\\eclipse-workspace\\Prog\\Hasil Akhir\\Akhir" + akhir + ".txt");
-//		boolean exist = fileAkhir.exists();
-//		
-//		try {
-//			if (exist == true) {
-//				while (exist == true) {
-//					akhir++;
-//					fileAkhir = new File("C:\\Users\\torch\\eclipse-workspace\\Prog\\Hasil Akhir\\Akhir" + akhir + ".txt");
-//					exist = fileAkhir.exists();
-//				}
-//			}
-//			
-//			read = new BufferedReader(new FileReader("C:\\Users\\torch\\eclipse-workspace\\Prog\\Hasil Sense\\Sense_14_47_13_26_9_2019.txt"));
-//			writer = new BufferedWriter(new FileWriter(fileAkhir));
-//			
-//			while ((tempawal = read.readLine()) != null) {
-//				temp.add(tempawal);
-//			}
-//			read.close();
-//			inside();
-//			writer.close();
-//		} catch (Exception e) {
-//
-//		}
-//	}
+	public static void main(String[] args) {
+	}
 
 	public void inside() {
 		try {
-			writer = new BufferedWriter(new FileWriter(Control.fileExtract,true));
-			writerX = new BufferedWriter(new FileWriter(Control.filePredict,false));
+			writer = new BufferedWriter(new FileWriter(Control.fileExtract, true));
+			writerX = new BufferedWriter(new FileWriter(Control.filePredict, false));
 //			if(awal==0) {
-//				writer.write("Node Sensor;max Temperature; min Temperature; rata-rata Temperature; max Humidity; min Humidity; rata-rata Humidity; max Pressure; min Pressure; rata-rata Pressure");
-//				writer.close();
-//				writer = new BufferedWriter(new FileWriter(Control.fileExtract));
+//				writer.write("Node Sensor;max Temperature; min Temperature; rata-rata Temperature; max Humidity; min Humidity; rata-rata Humidity; max Pressure; min Pressure; rata-rata Pressure;tanda");
+//			awal++;
 //			}
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 		alamat = new String[] { "(AAAF)", "(AADC)", "(CACF)", "(BCAF)", "(DACE)" };
-		int counterwaktu = 0;
 		try {
 			for (int d = 0; d < Control.temp.size(); d++) {
 				temp2 = Control.temp.get(d).split(";");
 				if (temp2[6].equals("[0]")) {
 					idx = temp2[0];
-					waktu = temp2[2].split(":");
-					counterwaktu = Integer.parseInt(waktu[2]);
-
-					if (counterwaktu <= 30) {
-						inputarrayextract();
-						hitungextract1 = 1;
-					}
-					if (counterwaktu <= 60 && counterwaktu > 30) {
-						if (hitungextract1 == 1) {
-							writeextract();
-							hitungextract1 = 0;
-							inputarrayextract();
+					if (idx.equalsIgnoreCase(alamat[0])) {
+						waktu = temp2[2].split(":");
+						String jam = waktu[0];
+						String menit = waktu[1];
+						int counterwaktu = Integer.parseInt(waktu[2]);
+						if (counterwaktu <= 30) {
+							
+							inputtoarray(1);
+							counter1 = 1;
+						} else if (counterwaktu > 30 && counterwaktu < 60) {
+							if (counter1 == 1) {
+								writeextract(1, jam, menit, "30");
+								counter1 = 0;
+							}
+							inputtoarray(1);
+							counter2 = 1;
+						}
+						if (counterwaktu <= 30 && counter2 == 1) {
+							writeextract(1, jam, menit, "00");
+							counter2 = 0;
+						}
+					} else if (idx.equalsIgnoreCase(alamat[1])) {
+						waktu = temp2[2].split(":");
+						String jam = waktu[0];
+						String menit = waktu[1];
+						int counterwaktu = Integer.parseInt(waktu[2]);
+						if (counterwaktu <= 30) {
+							// Masukin tiap nilai sensing ke array
+							inputtoarray(2);
+							counter3 = 0;
 						} else {
-							inputarrayextract();
-							hitungextract2 = 1;
+							if (counter3 == 0) {
+								writeextract(2, jam, menit, "30");
+								counter3 = 1;
+							}
+							inputtoarray(2);
+							counter4 = 1;
+						}
+						if (counterwaktu <= 30 && counter4 == 1) {
+							writeextract(2, jam, menit, "00");
+							counter4 = 0;
+						}
+					} else if (idx.equalsIgnoreCase(alamat[2])) {
+						waktu = temp2[2].split(":");
+						String jam = waktu[0];
+						String menit = waktu[1];
+						int counterwaktu = Integer.parseInt(waktu[2]);
+						if (counterwaktu <= 30) {
+							// Masukin tiap nilai sensing ke array
+							inputtoarray(3);
+							counter5 = 0;
+						} else {
+							if (counter5 == 0) {
+								writeextract(3, jam, menit, "30");
+								counter5 = 1;
+							}
+							inputtoarray(3);
+							counter6 = 1;
+						}
+						if (counterwaktu <= 30 && counter6 == 1) {
+							writeextract(3, jam, menit, "00");
+							counter6 = 0;
+						}
+					} else if (idx.equalsIgnoreCase(alamat[3])) {
+						waktu = temp2[2].split(":");
+						String jam = waktu[0];
+						String menit = waktu[1];
+						int counterwaktu = Integer.parseInt(waktu[2]);
+						if (counterwaktu <= 30) {
+							// Masukin tiap nilai sensing ke array
+							inputtoarray(4);
+							counter7 = 0;
+						} else {
+
+							if (counter7 == 0) {
+								writeextract(4, jam, menit, "30");
+								counter7 = 1;
+							}
+							inputtoarray(4);
+							counter8 = 1;
+						}
+						if (counterwaktu <= 30 && counter8 == 1) {
+							writeextract(4, jam, menit, "00");
+							counter8 = 0;
+						}
+					} else if (idx.equalsIgnoreCase(alamat[4])) {
+						waktu = temp2[2].split(":");
+						String jam = waktu[0];
+						String menit = waktu[1];
+						int counterwaktu = Integer.parseInt(waktu[2]);
+						if (counterwaktu <= 30) {
+							// Masukin tiap nilai sensing ke array
+							inputtoarray(5);
+							counter9 = 0;
+						} else {
+
+							if (counter9 == 0) {
+								writeextract(5, jam, menit, "30");
+								counter9 = 1;
+							}
+							inputtoarray(5);
+							counter10 = 1;
+						}
+						if (counterwaktu <= 30 && counter10 == 1) {
+							writeextract(5, jam, menit, "00");
+							counter10 = 0;
 						}
 					}
-					if (hitungextract2 == 1 && hitungextract1 == 1) {
-						writeextract();
-						hitungextract2 = 0;
-						inputarrayextract();
-					}
+				} else {
+
 				}
 			}
 			writer.close();
@@ -123,40 +177,34 @@ public class extract {
 		}
 	}
 
-	private void inputarrayextract() {
-		if (idx.equalsIgnoreCase(alamat[0])) {
-			// Masukin tiap nilai sensing ke array
+	private void inputtoarray(int code) {
+		// Masukin tiap nilai sensing ke array
+		if (code == 1) {
 			node1T.add(Double.parseDouble(temp2[3]));
 			node1H.add(Double.parseDouble(temp2[4]));
 			node1P.add(Double.parseDouble(temp2[5]));
-		} else if (idx.equalsIgnoreCase(alamat[1])) {
-			// Masukin tiap nilai sensing ke array
+		} else if (code == 2) {
 			node2T.add(Double.parseDouble(temp2[3]));
 			node2H.add(Double.parseDouble(temp2[4]));
 			node2P.add(Double.parseDouble(temp2[5]));
-		} else if (idx.equalsIgnoreCase(alamat[2])) {
-			// Masukin tiap nilai sensing ke array
+		} else if (code == 3) {
 			node3T.add(Double.parseDouble(temp2[3]));
 			node3H.add(Double.parseDouble(temp2[4]));
 			node3P.add(Double.parseDouble(temp2[5]));
-		} else if (idx.equalsIgnoreCase(alamat[3])) {
-			// Masukin tiap nilai sensing ke array
+		} else if (code == 4) {
 			node4T.add(Double.parseDouble(temp2[3]));
 			node4H.add(Double.parseDouble(temp2[4]));
 			node4P.add(Double.parseDouble(temp2[5]));
-		} else if (idx.equalsIgnoreCase(alamat[4])) {
-			// Masukin tiap nilai sensing ke array
+		} else if (code == 5) {
 			node5T.add(Double.parseDouble(temp2[3]));
 			node5H.add(Double.parseDouble(temp2[4]));
 			node5P.add(Double.parseDouble(temp2[5]));
 		}
 	}
 
-	private void writeextract() throws IOException {
-		if (node1T.size() == 0) {
-
-		} else {
-			double temphasil = 0;
+	private void writeextract(int choice, String jam, String menit, String detik) throws IOException {
+		if (choice == 1) {
+			double tempRata2 = 0;
 			String hasilextract = "";
 			String hasilextracttest = "";
 			String x = "";
@@ -168,16 +216,12 @@ public class extract {
 			double minH = node1H.get(0);
 			double maxP = node1P.get(0);
 			double minP = node1P.get(0);
-			int randomPredict = rand.nextInt(2);
-			if(randomPredict == 0) {
-				randomPredict = -1;
-			}
 
 			// Rata-rata Temperature
 			for (int i = 0; i < node1T.size(); i++) {
-				temphasil += node1T.get(i);
+				tempRata2 += node1T.get(i);
 			}
-			temphasil = temphasil / node1T.size();
+			tempRata2 = tempRata2 / node1T.size();
 
 			// Maksimum dan minimum Temperature
 			for (int i = 0; i < node1T.size(); i++) {
@@ -192,17 +236,16 @@ public class extract {
 			// hasil Temperature
 			x = String.format("%.4f", maxT);
 			y = String.format("%.4f", minT);
-			z = String.format("%.4f", temphasil);
+			z = String.format("%.4f", tempRata2);
 			hasilextract += x + ";" + y + ";" + z + ";";
-			hasilextracttest += randomPredict + " 1:" + x + " 2:" + y + " 3:" + z;
-			// hasilextract1 += maxT + " " + minT + " " + temphasil + " ";
-			temphasil = 0;
+			hasilextracttest += "1:" + x + " 2:" + y + " 3:" + z;
+			tempRata2 = 0;
 
 			// Rata-rata Humidity
 			for (int i = 0; i < node1H.size(); i++) {
-				temphasil += node1H.get(i);
+				tempRata2 += node1H.get(i);
 			}
-			temphasil = temphasil / node1H.size();
+			tempRata2 = tempRata2 / node1H.size();
 
 			// Maksimum dan minimum Humidity
 			for (int i = 0; i < node1H.size(); i++) {
@@ -217,17 +260,16 @@ public class extract {
 			// hasil Humidity
 			x = String.format("%.4f", maxH);
 			y = String.format("%.4f", minH);
-			z = String.format("%.4f", temphasil);
+			z = String.format("%.4f", tempRata2);
 			hasilextract += x + ";" + y + ";" + z + ";";
 			hasilextracttest += " 4:" + x + " 5:" + y + " 6:" + z;
-			// hasilextract1 += maxH + " " + minH + " " + temphasil + " ";
-			temphasil = 0;
+			tempRata2 = 0;
 
 			// Rata-rata Pressure
 			for (int i = 0; i < node1P.size(); i++) {
-				temphasil += node1P.get(i);
+				tempRata2 += node1P.get(i);
 			}
-			temphasil = temphasil / node1P.size();
+			tempRata2 = tempRata2 / node1P.size();
 
 			// Maksimum dan minimum Pressure
 			for (int i = 0; i < node1P.size(); i++) {
@@ -242,17 +284,12 @@ public class extract {
 			// hasil Pressure
 			x = String.format("%.4f", maxP);
 			y = String.format("%.4f", minP);
-			z = String.format("%.4f", temphasil);
-			hasilextract += x + " " + y + ";" + z + ";";
+			z = String.format("%.4f", tempRata2);
+			hasilextract += x + ";" + y + ";" + z + ";";
 			hasilextracttest += " 7:" + x + " 8:" + y + " 9:" + z;
-			// hasilextract1 += maxP + " " + minP + " " + temphasil + " ";
 			writer.write(alamat[0] + ";");
-			if (hitungextract1 == 1 && hitungextract2 == 0) {
-				writer.write(waktu[0] + ":" + waktu[1] + ":" + "30;");
-			} else {
-				writer.write(waktu[0] + ":" + waktu[1] + ":" + "00;");
-			}
-			writer.write(hasilextract +"[0];");
+			writer.write(jam + ":" + menit + ":" + detik + ";");
+			writer.write(hasilextract + "[0];");
 			writerX.write(hasilextracttest);
 			writer.newLine();
 			writerX.newLine();
@@ -261,11 +298,8 @@ public class extract {
 			node1T.clear();
 			node1H.clear();
 			node1P.clear();
-		}
-		if (node2T.size() == 0) {
-
-		} else {
-			double temphasil = 0;
+		} else if (choice == 2) {
+			double tempRata2 = 0;
 			String hasilextract = "";
 			String hasilextracttest = "";
 			String x = "";
@@ -277,16 +311,12 @@ public class extract {
 			double minH = node2H.get(0);
 			double maxP = node2P.get(0);
 			double minP = node2P.get(0);
-			int randomPredict = rand.nextInt(2);
-			if(randomPredict == 0) {
-				randomPredict = -1;
-			}
 
 			// Rata-rata Temperature
 			for (int i = 0; i < node2T.size(); i++) {
-				temphasil += node2T.get(i);
+				tempRata2 += node2T.get(i);
 			}
-			temphasil = temphasil / node2T.size();
+			tempRata2 = tempRata2 / node2T.size();
 
 			// Maksimum dan minimum Temperature
 			for (int i = 0; i < node2T.size(); i++) {
@@ -301,17 +331,16 @@ public class extract {
 			// hasil Temperature
 			x = String.format("%.4f", maxT);
 			y = String.format("%.4f", minT);
-			z = String.format("%.4f", temphasil);
+			z = String.format("%.4f", tempRata2);
 			hasilextract += x + ";" + y + ";" + z + ";";
-			hasilextracttest +=  randomPredict + " 1:" + x + " 2:" + y + " 3:" + z;
-			// hasilextract2 += maxT + " " + minT + " " + temphasil + " ";
-			temphasil = 0;
+			hasilextracttest += "1:" + x + " 2:" + y + " 3:" + z;
+			tempRata2 = 0;
 
 			// Rata-rata Humidity
 			for (int i = 0; i < node2H.size(); i++) {
-				temphasil += node2H.get(i);
+				tempRata2 += node2H.get(i);
 			}
-			temphasil = temphasil / node2H.size();
+			tempRata2 = tempRata2 / node2H.size();
 
 			// Maksimum dan minimum Humidity
 			for (int i = 0; i < node2H.size(); i++) {
@@ -326,17 +355,16 @@ public class extract {
 			// hasil Humidity
 			x = String.format("%.4f", maxH);
 			y = String.format("%.4f", minH);
-			z = String.format("%.4f", temphasil);
+			z = String.format("%.4f", tempRata2);
 			hasilextract += x + ";" + y + ";" + z + ";";
 			hasilextracttest += " 4:" + x + " 5:" + y + " 6:" + z;
-			// hasilextract2 += maxH + ";" + minH + ";" + temphasil + ";";
-			temphasil = 0;
+			tempRata2 = 0;
 
 			// Rata-rata Pressure
 			for (int i = 0; i < node2P.size(); i++) {
-				temphasil += node2P.get(i);
+				tempRata2 += node2P.get(i);
 			}
-			temphasil = temphasil / node2P.size();
+			tempRata2 = tempRata2 / node2P.size();
 
 			// Maksimum dan minimum Pressure
 			for (int i = 0; i < node2P.size(); i++) {
@@ -351,17 +379,12 @@ public class extract {
 			// hasil Pressure
 			x = String.format("%.4f", maxP);
 			y = String.format("%.4f", minP);
-			z = String.format("%.4f", temphasil);
+			z = String.format("%.4f", tempRata2);
 			hasilextract += x + ";" + y + ";" + z + ";";
 			hasilextracttest += " 7:" + x + " 8:" + y + " 9:" + z;
-			// hasilextract2 += maxP + " " + minP + " " + temphasil + " ";
 			writer.write(alamat[1] + ";");
-			if (hitungextract1 == 1 && hitungextract2 == 0) {
-				writer.write(waktu[0] + ":" + waktu[1] + ":" + "30;");
-			} else {
-				writer.write(waktu[0] + ":" + waktu[1] + ":" + "00;");
-			}
-			writer.write(hasilextract +"[0];");
+			writer.write(jam + ":" + menit + ":" + detik + ";");
+			writer.write(hasilextract + "[0];");
 			writerX.write(hasilextracttest);
 			writer.newLine();
 			writerX.newLine();
@@ -370,11 +393,8 @@ public class extract {
 			node2T.clear();
 			node2H.clear();
 			node2P.clear();
-		}
-		if (node3T.size() == 0) {
-
-		} else {
-			double temphasil = 0;
+		} else if (choice == 3) {
+			double tempRata2 = 0;
 			String hasilextract = "";
 			String hasilextracttest = "";
 			String x = "";
@@ -386,16 +406,12 @@ public class extract {
 			double minH = node3H.get(0);
 			double maxP = node3P.get(0);
 			double minP = node3P.get(0);
-			int randomPredict = rand.nextInt(2);
-			if(randomPredict == 0) {
-				randomPredict = -1;
-			}
 
 			// Rata-rata Temperature
 			for (int i = 0; i < node3T.size(); i++) {
-				temphasil += node3T.get(i);
+				tempRata2 += node3T.get(i);
 			}
-			temphasil = temphasil / node3T.size();
+			tempRata2 = tempRata2 / node3T.size();
 
 			// Maksimum dan minimum Temperature
 			for (int i = 0; i < node3T.size(); i++) {
@@ -410,17 +426,16 @@ public class extract {
 			// hasil Temperature
 			x = String.format("%.4f", maxT);
 			y = String.format("%.4f", minT);
-			z = String.format("%.4f", temphasil);
+			z = String.format("%.4f", tempRata2);
 			hasilextract += x + ";" + y + ";" + z + ";";
-			hasilextracttest += randomPredict + " 1:" + x + " 2:" + y + " 3:" + z;
-			// hasilextract3 += maxT + " " + minT + " " + temphasil + " ";
-			temphasil = 0;
+			hasilextracttest += "1:" + x + " 2:" + y + " 3:" + z;
+			tempRata2 = 0;
 
 			// Rata-rata Humidity
 			for (int i = 0; i < node3H.size(); i++) {
-				temphasil += node3H.get(i);
+				tempRata2 += node3H.get(i);
 			}
-			temphasil = temphasil / node3H.size();
+			tempRata2 = tempRata2 / node3H.size();
 
 			// Maksimum dan minimum Humidity
 			for (int i = 0; i < node3H.size(); i++) {
@@ -435,17 +450,16 @@ public class extract {
 			// hasil Humidity
 			x = String.format("%.4f", maxH);
 			y = String.format("%.4f", minH);
-			z = String.format("%.4f", temphasil);
+			z = String.format("%.4f", tempRata2);
 			hasilextract += x + ";" + y + ";" + z + ";";
 			hasilextracttest += " 4:" + x + " 5:" + y + " 6:" + z;
-			// hasilextract3 += maxH + " " + minH + " " + temphasil + " ";
-			temphasil = 0;
+			tempRata2 = 0;
 
 			// Rata-rata Pressure
 			for (int i = 0; i < node3P.size(); i++) {
-				temphasil += node3P.get(i);
+				tempRata2 += node3P.get(i);
 			}
-			temphasil = temphasil / node3P.size();
+			tempRata2 = tempRata2 / node3P.size();
 
 			// Maksimum dan minimum Pressure
 			for (int i = 0; i < node3P.size(); i++) {
@@ -460,30 +474,23 @@ public class extract {
 			// hasil Pressure
 			x = String.format("%.4f", maxP);
 			y = String.format("%.4f", minP);
-			z = String.format("%.4f", temphasil);
+			z = String.format("%.4f", tempRata2);
 			hasilextract += x + ";" + y + ";" + z + ";";
 			hasilextracttest += " 7:" + x + " 8:" + y + " 9:" + z;
-			// hasilextract3 += maxP + " " + minP + " " + temphasil + " ";
 			writer.write(alamat[2] + ";");
-			if (hitungextract1 == 1 && hitungextract2 == 0) {
-				writer.write(waktu[0] + ":" + waktu[1] + ":" + "30;");
-			} else {
-				writer.write(waktu[0] + ":" + waktu[1] + ":" + "00;");
-			}
-			writer.write(hasilextract +"[0];");
+			writer.write(jam + ":" + menit + ":" + detik + ";");
+			writer.write(hasilextract + "[0];");
 			writerX.write(hasilextracttest);
 			writer.newLine();
 			writerX.newLine();
+			writer.close();
 			hasilextract = "";
 			hasilextracttest = "";
 			node3T.clear();
 			node3H.clear();
 			node3P.clear();
-		}
-		if (node4T.size() == 0) {
-
-		} else {
-			double temphasil = 0;
+		} else if (choice == 4) {
+			double tempRata2 = 0;
 			String hasilextract = "";
 			String hasilextracttest = "";
 			String x = "";
@@ -495,16 +502,12 @@ public class extract {
 			double minH = node4H.get(0);
 			double maxP = node4P.get(0);
 			double minP = node4P.get(0);
-			int randomPredict = rand.nextInt(2);
-			if(randomPredict == 0) {
-				randomPredict = -1;
-			}
 
 			// Rata-rata Temperature
 			for (int i = 0; i < node4T.size(); i++) {
-				temphasil += node4T.get(i);
+				tempRata2 += node4T.get(i);
 			}
-			temphasil = temphasil / node4T.size();
+			tempRata2 = tempRata2 / node4T.size();
 
 			// Maksimum dan minimum Temperature
 			for (int i = 0; i < node4T.size(); i++) {
@@ -519,17 +522,16 @@ public class extract {
 			// hasil Temperature
 			x = String.format("%.4f", maxT);
 			y = String.format("%.4f", minT);
-			z = String.format("%.4f", temphasil);
+			z = String.format("%.4f", tempRata2);
 			hasilextract += x + ";" + y + ";" + z + ";";
-			hasilextracttest += randomPredict + " 1:" + x + " 2:" + y + " 3:" + z;
-			// hasilextract4 += maxT + " " + minT + " " + temphasil + " ";
-			temphasil = 0;
+			hasilextracttest += "1:" + x + " 2:" + y + " 3:" + z;
+			tempRata2 = 0;
 
 			// Rata-rata Humidity
 			for (int i = 0; i < node4H.size(); i++) {
-				temphasil += node4H.get(i);
+				tempRata2 += node4H.get(i);
 			}
-			temphasil = temphasil / node4H.size();
+			tempRata2 = tempRata2 / node4H.size();
 
 			// Maksimum dan minimum Humidity
 			for (int i = 0; i < node4H.size(); i++) {
@@ -544,17 +546,16 @@ public class extract {
 			// hasil Humidity
 			x = String.format("%.4f", maxH);
 			y = String.format("%.4f", minH);
-			z = String.format("%.4f", temphasil);
+			z = String.format("%.4f", tempRata2);
 			hasilextract += x + ";" + y + ";" + z + ";";
 			hasilextracttest += " 4:" + x + " 5:" + y + " 6:" + z;
-			// hasilextract4 += maxH + " " + minH + " " + temphasil + " ";
-			temphasil = 0;
+			tempRata2 = 0;
 
 			// Rata-rata Pressure
 			for (int i = 0; i < node4P.size(); i++) {
-				temphasil += node4P.get(i);
+				tempRata2 += node4P.get(i);
 			}
-			temphasil = temphasil / node4P.size();
+			tempRata2 = tempRata2 / node4P.size();
 
 			// Maksimum dan minimum Pressure
 			for (int i = 0; i < node4P.size(); i++) {
@@ -569,30 +570,22 @@ public class extract {
 			// hasil Pressure
 			x = String.format("%.4f", maxP);
 			y = String.format("%.4f", minP);
-			z = String.format("%.4f", temphasil);
+			z = String.format("%.4f", tempRata2);
 			hasilextract += x + ";" + y + ";" + z + ";";
 			hasilextracttest += " 7:" + x + " 8:" + y + " 9:" + z;
-			// hasilextract4 += maxP + " " + minP + " " + temphasil + " ";
 			writer.write(alamat[3] + ";");
-			if (hitungextract1 == 1 && hitungextract2 == 0) {
-				writer.write(waktu[0] + ":" + waktu[1] + ":" + "30;");
-			} else {
-				writer.write(waktu[0] + ":" + waktu[1] + ":" + "00;");
-			}
-			writer.write(hasilextract +"[0];");
+			writer.write(jam + ":" + menit + ":" + detik + ";");
+			writer.write(hasilextract + "[0];");
 			writerX.write(hasilextracttest);
 			writer.newLine();
 			writerX.newLine();
 			hasilextract = "";
-			hasilextracttest="";
+			hasilextracttest = "";
 			node4T.clear();
 			node4H.clear();
 			node4P.clear();
-		}
-		if (node5T.size() == 0) {
-
-		} else {
-			double temphasil = 0;
+		} else if (choice == 5) {
+			double tempRata2 = 0;
 			String hasilextract = "";
 			String hasilextracttest = "";
 			String x = "";
@@ -604,16 +597,12 @@ public class extract {
 			double minH = node5H.get(0);
 			double maxP = node5P.get(0);
 			double minP = node5P.get(0);
-			int randomPredict = rand.nextInt(2);
-			if(randomPredict == 0) {
-				randomPredict = -1;
-			}
 
 			// Rata-rata Temperature
 			for (int i = 0; i < node5T.size(); i++) {
-				temphasil += node5T.get(i);
+				tempRata2 += node5T.get(i);
 			}
-			temphasil = temphasil / node5T.size();
+			tempRata2 = tempRata2 / node5T.size();
 
 			// Maksimum dan minimum Temperature
 			for (int i = 0; i < node5T.size(); i++) {
@@ -628,17 +617,16 @@ public class extract {
 			// hasil Temperature
 			x = String.format("%.4f", maxT);
 			y = String.format("%.4f", minT);
-			z = String.format("%.4f", temphasil);
+			z = String.format("%.4f", tempRata2);
 			hasilextract += x + ";" + y + ";" + z + ";";
-			hasilextracttest += randomPredict + " 1:" + x + " 2:" + y + " 3:" + z;
-			// hasilextract5 += maxT + " " + minT + " " + temphasil + " ";
-			temphasil = 0;
+			hasilextracttest += "1:" + x + " 2:" + y + " 3:" + z;
+			tempRata2 = 0;
 
 			// Rata-rata Humidity
 			for (int i = 0; i < node5H.size(); i++) {
-				temphasil += node5H.get(i);
+				tempRata2 += node5H.get(i);
 			}
-			temphasil = temphasil / node5H.size();
+			tempRata2 = tempRata2 / node5H.size();
 
 			// Maksimum dan minimum Humidity
 			for (int i = 0; i < node5H.size(); i++) {
@@ -653,17 +641,16 @@ public class extract {
 			// hasil Humidity
 			x = String.format("%.4f", maxH);
 			y = String.format("%.4f", minH);
-			z = String.format("%.4f", temphasil);
+			z = String.format("%.4f", tempRata2);
 			hasilextract += x + ";" + y + ";" + z + ";";
 			hasilextracttest += " 4:" + x + " 5:" + y + " 6:" + z;
-			// hasilextract5 += maxH + " " + minH + " " + temphasil + " ";
-			temphasil = 0;
+			tempRata2 = 0;
 
 			// Rata-rata Pressure
 			for (int i = 0; i < node5P.size(); i++) {
-				temphasil += node5P.get(i);
+				tempRata2 += node5P.get(i);
 			}
-			temphasil = temphasil / node5P.size();
+			tempRata2 = tempRata2 / node5P.size();
 
 			// Maksimum dan minimum Pressure
 			for (int i = 0; i < node5P.size(); i++) {
@@ -678,18 +665,13 @@ public class extract {
 			// hasil Pressure
 			x = String.format("%.4f", maxP);
 			y = String.format("%.4f", minP);
-			z = String.format("%.4f", temphasil);
+			z = String.format("%.4f", tempRata2);
 			hasilextract += x + ";" + y + ";" + z + ";";
 
 			hasilextracttest += " 7:" + x + " 8:" + y + " 9:" + z;
-			// hasilextract5 += maxP + " " + minP + " " + temphasil + " ";
 			writer.write(alamat[4]);
-			if (hitungextract1 == 1 && hitungextract2 == 0) {
-				writer.write(waktu[0] + ":" + waktu[1] + ":" + "30;");
-			} else {
-				writer.write(waktu[0] + ":" + waktu[1] + ":" + "00;");
-			}
-			writer.write(hasilextract +"[0];");
+			writer.write(jam + ":" + menit + ":" + detik + ";");
+			writer.write(hasilextract + "[0];");
 			writerX.write(hasilextracttest);
 			writer.newLine();
 			writerX.newLine();

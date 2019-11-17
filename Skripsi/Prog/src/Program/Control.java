@@ -97,10 +97,22 @@ public class Control {
 											filePredict = new File(
 													"C:\\Users\\torch\\eclipse-workspace\\Prog\\windows\\dummy.test.txt");
 											read();
-											svm_predict.predict(filePredict, model);
-											PrintWriter writerHapus = new PrintWriter(filePredict);
-											writerHapus.print("");
-											writerHapus.close();
+											BufferedReader breader = new BufferedReader(new FileReader(fileExtract));
+											String line = "";
+											List<String> lines = new ArrayList<String>();
+											while ((line = breader.readLine()) != null) {
+												lines.add(line);
+											}
+											breader.close();
+											if (lines.isEmpty()) {
+
+											} else {
+												svm_predict.predict(filePredict, model);
+												PrintWriter writerHapus = new PrintWriter(filePredict);
+												writerHapus.print("");
+												writerHapus.close();
+											}
+
 										} catch (Exception e) {
 											e.printStackTrace();
 										}
@@ -112,11 +124,6 @@ public class Control {
 					} catch (IOException e) {
 					}
 					Arrays.fill(buffer, (byte) 0);
-				}
-				try {
-					writer.close();
-				} catch (Exception e) {
-					;
 				}
 			}
 		}.start();

@@ -646,9 +646,9 @@
 	7		getConfiguration()I
 	7		getStatus()I
 
-643		Node
-	532		Sense()V
-	100		<init>()V
+640		Node
+	539		Sense()V
+	90		<init>()V
 	11		main([Ljava/lang/String;)V
 
 639		com/virtenio/misc/StringUtils
@@ -942,9 +942,9 @@
 	8		getType()I
 	6		<init>()V
 
-210		stringFormatTime
-	189		SFTime()Ljava/lang/String;
-	21		<init>()V
+195		stringFormatTime
+	189		SFTime(J)Ljava/lang/String;
+	6		<init>()V
 
 191		java/util/AbstractSet
 	86		removeAll(Ljava/util/Collection;)Z

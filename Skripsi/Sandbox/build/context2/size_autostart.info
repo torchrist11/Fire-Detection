@@ -618,11 +618,6 @@
 	14		getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 	6		<init>()V
 
-668		Node
-	567		Sense()V
-	90		<init>()V
-	11		main([Ljava/lang/String;)V
-
 650		com/virtenio/driver/device/ADT7410
 	121		readValue(II)I
 	74		writeValue(III)V
@@ -650,6 +645,11 @@
 	8		getID()I
 	7		getConfiguration()I
 	7		getStatus()I
+
+640		Node
+	539		Sense()V
+	90		<init>()V
+	11		main([Ljava/lang/String;)V
 
 639		com/virtenio/misc/StringUtils
 	116		split(Ljava/lang/String;Ljava/lang/String;)[Ljava/lang/String;
