@@ -1,8 +1,19 @@
 package svm;
 
 import libsvm.*;
+
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.Window;
+import java.awt.event.WindowEvent;
 import java.io.*;
 import java.util.*;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.CloseAction;
+import javax.swing.table.DefaultTableModel;
 import Program.Control;
 
 public class svm_predict {
@@ -11,6 +22,22 @@ public class svm_predict {
 	private static BufferedWriter writer;
 	private static File hasilAkhir;
 	private static int count = 0;
+	static JTable table = new JTable();;
+	static DefaultTableModel dm = new DefaultTableModel();;
+	static JScrollPane sp;
+	static String[] header = new String[] { "Waktu", "Hasil Prediksi" };
+	static String[][] cols;
+	static JFrame f = new JFrame("Hasil Prediksi");
+
+	public svm_predict() {
+//		table.setSize(800, 500);
+//		table.setPreferredSize(table.getSize());
+
+	}
+
+	public boolean isCellEditable(int rowIndex, int colIndex) {
+		return false;
+	}
 
 	private static svm_print_interface svm_print_stdout = new svm_print_interface() {
 		public void print(String s) {
@@ -32,10 +59,8 @@ public class svm_predict {
 		return Integer.parseInt(s);
 	}
 
-	public static void predict(File data,
-			/* DataOutputStream output, */ svm_model model /* , int predict_probability */) throws IOException {
+	public static void predict(File data, svm_model model) throws IOException {
 		/* predict_probability = 0 */
-
 		if (count == 0) {
 			int nomorFileAkhir = 1;
 			hasilAkhir = new File(
@@ -55,18 +80,44 @@ public class svm_predict {
 
 			}
 		}
+
 		reader = new BufferedReader(new FileReader(data));
 		readerExtract = new BufferedReader(new FileReader(Control.fileExtract));
 		FileWriter fw = new FileWriter(hasilAkhir, true);
 		writer = new BufferedWriter(fw);
 		List<String> temp = new ArrayList<String>();
 		List<String> extractCounter = new ArrayList<String>();
+		String hasil = "";
 		String line = "";
 		String line2 = "";
 		String line3 = "";
 		String line4 = "";
 		int count2 = 0;
+		String temphasil = "";
+		String temp2 = "";
+		int banyakBaris = 0;
 
+		if (f.isActive() == false) {
+			dm.setColumnIdentifiers(header);
+			for (int ct = 0; ct < 25; ct++) {
+				dm.addRow(new Object[] {"",""});
+			}
+			table.setModel(dm);
+			table.getColumnModel().getColumn(0).setPreferredWidth(100);
+			table.getColumnModel().getColumn(1).setPreferredWidth(500);
+			table.setPreferredScrollableViewportSize(table.getPreferredSize());
+			table.setFillsViewportHeight(true);
+			table.setEnabled(false);
+			sp = new JScrollPane(table);
+			f.add(sp);
+			f.setVisible(true);
+			f.setAlwaysOnTop(true);
+			f.setSize(700, 500);
+			f.setLocationRelativeTo(null);
+			f.setLayout(new FlowLayout());
+		} else {
+			banyakBaris++;
+		}
 		while ((line = reader.readLine()) != null) {
 			if (count2 == 0) {
 				while ((line2 = readerExtract.readLine()) != null) {
@@ -95,14 +146,31 @@ public class svm_predict {
 
 			predict_label = svm.svm_predict(model, x);
 			int hasilPredict = (int) predict_label;
-			String a ="";
-			for (int i = 0; i < splitter.length - 1; i++) {
-				a+=splitter[i]+";";
+			if (hasilPredict == -1) {
+				hasilPredict = 0;
 			}
-			String hasil ="";
-			hasil = a + hasilPredict;
+			for (int i = 0; i < splitter.length - 1; i++) {
+				temphasil += splitter[i] + ";";
+			}
+			for (int i = 0; i < splitter.length - 1; i++) {
+				if (i == 1) {
+
+				} else {
+					temp2 += splitter[i] + ";";
+				}
+			}
+			hasil = temphasil + hasilPredict;
 			writer.write(hasil + "\n");
 			System.out.println(hasil);
+			if (hasil.equals("") || hasil == null) {
+
+			} else {
+//				int banyakBaris =dm.getRowCount();
+				dm.insertRow(banyakBaris, new Object[] { splitter[1], temp2 });
+//				dm.addRow(new Object[] { splitter[1], /* splitter[0] + ", Hasil Prediksi: " + hasilPredict */ temp2 });
+				dm.fireTableDataChanged();
+//				new svm_predict();
+			}
 		}
 		writer.close();
 
@@ -118,7 +186,7 @@ public class svm_predict {
 
 		fr.close();
 		br.close();
-		
+
 		FileWriter fw2 = new FileWriter(Control.fileExtract);
 		BufferedWriter out = new BufferedWriter(fw2);
 		for (String s : temp) {
@@ -127,7 +195,7 @@ public class svm_predict {
 		}
 		out.flush();
 		out.close();
-		
+
 		extractCounter.clear();
 	}
 

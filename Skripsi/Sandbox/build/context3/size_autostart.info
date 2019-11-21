@@ -566,6 +566,13 @@
 	3		getTimeZone()Ljava/util/TimeZone;
 	3		isLenient()Z
 
+818		stringFormatTime
+	271		SFFull(J)Ljava/lang/String;
+	243		SFFile(J)Ljava/lang/String;
+	189		SFTime(J)Ljava/lang/String;
+	109		SFDate(J)Ljava/lang/String;
+	6		<init>()V
+
 813		java/util/TimeZone
 	256		getTimeZone(Ljava/lang/String;)Ljava/util/TimeZone;
 	169		formatTimeZoneName(Ljava/lang/String;I)Ljava/lang/String;
@@ -646,8 +653,8 @@
 	7		getConfiguration()I
 	7		getStatus()I
 
-640		Node
-	539		Sense()V
+643		Node
+	542		Sense()V
 	90		<init>()V
 	11		main([Ljava/lang/String;)V
 
@@ -940,10 +947,6 @@
 	11		getSrcAddrMode()I
 	9		getDestAddrMode()I
 	8		getType()I
-	6		<init>()V
-
-195		stringFormatTime
-	189		SFTime(J)Ljava/lang/String;
 	6		<init>()V
 
 191		java/util/AbstractSet

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class extract {
 	private BufferedWriter writer;
 	private BufferedWriter writerX;
-	private static String[] alamat;
+	public static String[] alamat;
 	private ArrayList<Double> node1T = new ArrayList<Double>();
 	private ArrayList<Double> node1H = new ArrayList<Double>();
 	private ArrayList<Double> node1P = new ArrayList<Double>();

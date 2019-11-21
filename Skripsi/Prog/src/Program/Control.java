@@ -2,26 +2,24 @@ package Program;
 
 import com.virtenio.commander.io.DataConnection;
 import com.virtenio.commander.toolsets.preon32.Preon32Helper;
-
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
 import libsvm.svm;
 import libsvm.svm_model;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.ProjectHelper;
 import org.apache.tools.ant.DefaultLogger;
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-
 import svm.svm_predict;
 
 public class Control {
@@ -38,7 +36,47 @@ public class Control {
 	public static ArrayList<String> temp = new ArrayList<String>();
 	stringFormatTime sfTime = new stringFormatTime();
 	svm_model model;
-	change c = new change();
+
+	public void init() throws Exception {
+		try {
+			Preon32Helper nodeHelper = new Preon32Helper("COM4", 115200);
+			DataConnection conn = nodeHelper.runModule("BaseStation");
+			BufferedInputStream in = new BufferedInputStream(conn.getInputStream());
+			conn.flush();
+
+			int nomorFile = 1;
+			fileExtract = new File(
+					"C:\\Users\\torch\\eclipse-workspace\\Prog\\Hasil Extract\\Extract_" + nomorFile + ".txt");
+			boolean exist = fileExtract.exists();
+			try {
+				if (exist == true) {
+					while (exist == true) {
+						nomorFile++;
+						fileExtract = new File("C:\\Users\\torch\\eclipse-workspace\\Prog\\Hasil Extract\\Extract_"
+								+ nomorFile + ".txt");
+						exist = fileExtract.exists();
+					}
+				}
+			} catch (Exception e) {
+
+			}
+			String pathmodel = "C:\\Users\\torch\\eclipse-workspace\\Prog\\windows\\dummy.train.model";
+			model = svm.svm_load_model(pathmodel);
+			if (model == null) {
+				System.err.print("can't open model file " + pathmodel + "\n");
+				System.exit(1);
+			}
+			if (svm.svm_check_probability_model(model) != 0) {
+				svm_predict.info("Model supports probability estimates, but disabled in prediction.\n");
+			}
+			String date = sfTime.SFFile(msecs);
+			file = new File("Sense_" + date + ".txt");
+			String folder = "Hasil Sense";
+			writeToFile(file, folder, in); // thread of void
+		} catch (Exception e) {
+
+		}
+	}
 
 	public synchronized void writeToFile(File file, String folder, BufferedInputStream in) throws Exception {
 		new Thread() {
@@ -164,111 +202,11 @@ public class Control {
 			ProjectHelper helper = ProjectHelper.getProjectHelper();
 			antProject.addReference("ant.ProjectHelper", helper);
 			helper.parse(antProject, buildFile);
-			//
 			String target = "cmd.time.synchronize";
 			antProject.executeTarget(target);
 			antProject.fireBuildFinished(null);
 		} catch (BuildException e) {
 			e.printStackTrace();
-		}
-	}
-
-	public void init() throws Exception {
-		String a = "true";
-		try {
-			Preon32Helper nodeHelper = new Preon32Helper("COM4", 115200);
-			DataConnection conn = nodeHelper.runModule("BaseStation");
-
-			BufferedInputStream in = new BufferedInputStream(conn.getInputStream());
-
-			conn.flush();
-
-//			 System.out.println("Sense: Temperature [°C], Humidity [Rh], Pressure [kPa]");
-			if (a.equalsIgnoreCase("true")) {
-				int nomorFile = 1;
-				fileExtract = new File(
-						"C:\\Users\\torch\\eclipse-workspace\\Prog\\Hasil Extract\\Extract_" + nomorFile + ".txt");
-				boolean exist = fileExtract.exists();
-				try {
-					if (exist == true) {
-						while (exist == true) {
-							nomorFile++;
-							fileExtract = new File("C:\\Users\\torch\\eclipse-workspace\\Prog\\Hasil Extract\\Extract_"
-									+ nomorFile + ".txt");
-							exist = fileExtract.exists();
-						}
-					}
-				} catch (Exception e) {
-
-				}
-				String pathmodel = "C:\\Users\\torch\\eclipse-workspace\\Prog\\windows\\dummy.train.model";
-				model = svm.svm_load_model(pathmodel);
-				if (model == null) {
-					System.err.print("can't open model file " + pathmodel + "\n");
-					System.exit(1);
-				}
-				if (svm.svm_check_probability_model(model) != 0) {
-					svm_predict.info("Model supports probability estimates, but disabled in prediction.\n");
-				}
-				String date = sfTime.SFFile(msecs);
-				file = new File("Sense_" + date + ".txt");
-				String folder = "Hasil Sense";
-				writeToFile(file, folder, in); // thread of void
-				a = "false";
-			}
-			// BufferedOutputStream out = new BufferedOutputStream(conn.getOutputStream());
-//			int choiceentry;
-			// byte[] buffer = new byte[2048];
-//			pilihan = new Scanner(System.in);
-			/// START MENU
-//			do {
-//				System.out.println("MENU");
-//				System.out.println("1. Sense");
-//				System.out.println("0. Exit");
-//				System.out.println("Choice: ");
-//
-//				choiceentry = pilihan.nextInt();
-//				conn.write(choiceentry);
-//				Thread.sleep(200);
-//				switch (choiceentry) {
-//				case 1: {
-//					// System.out.println("Sense: Temperature [°C], Humidity [Rh], Pressure [kPa]");
-//					if (a.equalsIgnoreCase("true")) {
-//						int nomorFile = 1;
-//						fileExtract = new File(
-//								"C:\\Users\\torch\\eclipse-workspace\\Prog\\Hasil Akhir\\Akhir_" + nomorFile + ".txt");
-//						boolean exist = fileExtract.exists();
-//						try {
-//							if (exist == true) {
-//								while (exist == true) {
-//									nomorFile++;
-//									fileExtract = new File("C:\\Users\\torch\\eclipse-workspace\\Prog\\Hasil Akhir\\Akhir_"
-//											+ nomorFile + ".txt");
-//									exist = fileExtract.exists();
-//								}
-//							}
-//						} catch (Exception e) {
-//
-//						}
-//						String date = sfTime.SFFile(msecs);
-//						file = new File("Sense_" + date + ".txt");
-//						String folder = "Hasil Sense";
-//						writeToFile(file, folder, in); // thread of void
-//						a = "false";
-//						break;
-//					} else {
-//						exit = true;
-//						break;
-//					}
-//				}
-//				case 0: {
-//					exit = true;
-//					break;
-//				}
-//				}
-//			} while (choiceentry != 0);
-
-		} catch (Exception e) {
 		}
 	}
 
@@ -282,10 +220,8 @@ public class Control {
 
 	public static void main(String[] args) throws Exception {
 		Control ctrl = new Control();
-
 		ctrl.context("context.set.1");
 		ctrl.time_synchronize();
-//		aGet.context_set("context.set.2");
 		ctrl.init();
 	}
 

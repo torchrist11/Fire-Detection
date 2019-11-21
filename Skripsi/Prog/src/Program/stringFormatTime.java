@@ -135,10 +135,9 @@ public class stringFormatTime {
     		sBuf.append("0");
     	sBuf.append(Integer.toString(second));
     	
-    	sBuf.append(".");
+    	sBuf.append(":");
     	int msecond = cal.get(Calendar.MILLISECOND);
     	sBuf.append(Integer.toString(msecond));
-    	sBuf.append(" ");
  
     	return (sBuf.toString());
 	}
