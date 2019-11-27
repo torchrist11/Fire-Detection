@@ -41,7 +41,7 @@ public class extract {
 	public static void main(String[] args) {
 	}
 
-	public void inside() {
+	public void Run() {
 		try {
 			writer = new BufferedWriter(new FileWriter(Control.fileExtract, true));
 			writerX = new BufferedWriter(new FileWriter(Control.filePredict, false));
@@ -59,7 +59,7 @@ public class extract {
 				if (temp2[6].equals("[0]")) {
 					idx = temp2[0];
 					if (idx.equalsIgnoreCase(alamat[0])) {
-						waktu = temp2[2].split(":");
+						waktu = temp2[1].split(":");
 						String jam = waktu[0];
 						String menit = waktu[1];
 						int counterwaktu = Integer.parseInt(waktu[2]);
@@ -80,7 +80,7 @@ public class extract {
 							counter2 = 0;
 						}
 					} else if (idx.equalsIgnoreCase(alamat[1])) {
-						waktu = temp2[2].split(":");
+						waktu = temp2[1].split(":");
 						String jam = waktu[0];
 						String menit = waktu[1];
 						int counterwaktu = Integer.parseInt(waktu[2]);
@@ -101,7 +101,7 @@ public class extract {
 							counter4 = 0;
 						}
 					} else if (idx.equalsIgnoreCase(alamat[2])) {
-						waktu = temp2[2].split(":");
+						waktu = temp2[1].split(":");
 						String jam = waktu[0];
 						String menit = waktu[1];
 						int counterwaktu = Integer.parseInt(waktu[2]);
@@ -122,7 +122,7 @@ public class extract {
 							counter6 = 0;
 						}
 					} else if (idx.equalsIgnoreCase(alamat[3])) {
-						waktu = temp2[2].split(":");
+						waktu = temp2[1].split(":");
 						String jam = waktu[0];
 						String menit = waktu[1];
 						int counterwaktu = Integer.parseInt(waktu[2]);
@@ -144,7 +144,7 @@ public class extract {
 							counter8 = 0;
 						}
 					} else if (idx.equalsIgnoreCase(alamat[4])) {
-						waktu = temp2[2].split(":");
+						waktu = temp2[1].split(":");
 						String jam = waktu[0];
 						String menit = waktu[1];
 						int counterwaktu = Integer.parseInt(waktu[2]);

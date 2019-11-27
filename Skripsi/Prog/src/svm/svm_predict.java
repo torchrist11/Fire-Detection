@@ -2,17 +2,12 @@ package svm;
 
 import libsvm.*;
 
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.FlowLayout;
-import java.awt.Window;
-import java.awt.event.WindowEvent;
 import java.io.*;
 import java.util.*;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.CloseAction;
 import javax.swing.table.DefaultTableModel;
 import Program.Control;
 
@@ -22,22 +17,16 @@ public class svm_predict {
 	private static BufferedWriter writer;
 	private static File hasilAkhir;
 	private static int count = 0;
-	static JTable table = new JTable();;
-	static DefaultTableModel dm = new DefaultTableModel();;
-	static JScrollPane sp;
-	static String[] header = new String[] { "Waktu", "Hasil Prediksi" };
-	static String[][] cols;
-	static JFrame f = new JFrame("Hasil Prediksi");
+	private static JTable table = new JTable();
+	private static DefaultTableModel dm = new DefaultTableModel();;
+	private static JScrollPane sp;
+	private static String[] header = new String[] { "Waktu", "Hasil Prediksi" };
+	private static JFrame f = new JFrame("Hasil Prediksi");
+//	private static int banyakBaris = 0;
 
-	public svm_predict() {
-//		table.setSize(800, 500);
-//		table.setPreferredSize(table.getSize());
-
-	}
-
-	public boolean isCellEditable(int rowIndex, int colIndex) {
-		return false;
-	}
+//	public boolean isCellEditable(int rowIndex, int colIndex) {
+//		return false;
+//	}
 
 	private static svm_print_interface svm_print_stdout = new svm_print_interface() {
 		public void print(String s) {
@@ -87,24 +76,25 @@ public class svm_predict {
 		writer = new BufferedWriter(fw);
 		List<String> temp = new ArrayList<String>();
 		List<String> extractCounter = new ArrayList<String>();
+		List<String> extractCounterAwal = new ArrayList<String>();
 		String hasil = "";
 		String line = "";
 		String line2 = "";
 		String line3 = "";
 		String line4 = "";
+		String line5 = "";
 		int count2 = 0;
 		String temphasil = "";
 		String temp2 = "";
-		int banyakBaris = 0;
 
 		if (f.isActive() == false) {
 			dm.setColumnIdentifiers(header);
 			for (int ct = 0; ct < 25; ct++) {
-				dm.addRow(new Object[] {"",""});
+				dm.addRow(new Object[] { "", "" });
 			}
 			table.setModel(dm);
 			table.getColumnModel().getColumn(0).setPreferredWidth(100);
-			table.getColumnModel().getColumn(1).setPreferredWidth(500);
+			table.getColumnModel().getColumn(1).setPreferredWidth(725);
 			table.setPreferredScrollableViewportSize(table.getPreferredSize());
 			table.setFillsViewportHeight(true);
 			table.setEnabled(false);
@@ -112,28 +102,31 @@ public class svm_predict {
 			f.add(sp);
 			f.setVisible(true);
 			f.setAlwaysOnTop(true);
-			f.setSize(700, 500);
+			f.setSize(1000, 500);
 			f.setLocationRelativeTo(null);
 			f.setLayout(new FlowLayout());
 		} else {
-			banyakBaris++;
+
 		}
 		while ((line = reader.readLine()) != null) {
-			if (count2 == 0) {
-				while ((line2 = readerExtract.readLine()) != null) {
-					String[] split1 = line2.split(";");
-					if (split1[11].equals("[0]")) {
-						extractCounter.add(line2);
-					} else {
+			extractCounterAwal.add(line);
+		}
+		while ((line2 = readerExtract.readLine()) != null) {
+			String[] split1 = line2.split(";");
+			if (split1[11].equals("[0]")) {
+				extractCounter.add(line2);
+			} else {
 
-					}
-				}
 			}
+		}
+		
+		for(int i = 0; i< extractCounterAwal.size();i++) {
+			line5 = extractCounterAwal.get(count2);
 			line3 = extractCounter.get(count2);
 			count2++;
 			String[] splitter = line3.split(";");
 
-			StringTokenizer st = new StringTokenizer(line, " \t\n\r\f:");
+			StringTokenizer st = new StringTokenizer(line5, " \t\n\r\f:");
 			int m = st.countTokens() / 2;
 			svm_node[] x = new svm_node[m];
 			for (int j = 0; j < m; j++) {
@@ -149,28 +142,30 @@ public class svm_predict {
 			if (hasilPredict == -1) {
 				hasilPredict = 0;
 			}
-			for (int i = 0; i < splitter.length - 1; i++) {
-				temphasil += splitter[i] + ";";
-			}
-			for (int i = 0; i < splitter.length - 1; i++) {
-				if (i == 1) {
+			for (int j = 0; j < splitter.length - 1; j++) {
+				temphasil += splitter[j] + ";";
+				if (j == 1) {
 
 				} else {
-					temp2 += splitter[i] + ";";
+					temp2 += splitter[j] + ";";
 				}
 			}
+
 			hasil = temphasil + hasilPredict;
 			writer.write(hasil + "\n");
 			System.out.println(hasil);
 			if (hasil.equals("") || hasil == null) {
 
 			} else {
-//				int banyakBaris =dm.getRowCount();
-				dm.insertRow(banyakBaris, new Object[] { splitter[1], temp2 });
-//				dm.addRow(new Object[] { splitter[1], /* splitter[0] + ", Hasil Prediksi: " + hasilPredict */ temp2 });
+//					int banyakBaris =dm.getRowCount();
+//					dm.insertRow(banyakBaris, new Object[] { splitter[1], temp2 });
+				dm.insertRow(0, new Object[] { splitter[1], temp2 + " Hasil Prediksi: " + hasilPredict });
 				dm.fireTableDataChanged();
-//				new svm_predict();
+//					new svm_predict();
 			}
+			temphasil="";
+			hasil = "";
+			temp2 ="";
 		}
 		writer.close();
 

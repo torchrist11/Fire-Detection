@@ -16,10 +16,11 @@ public class BaseStation {
 	private int COMMON_PANID = 0xCAFE;
 	private int[] addresses = new int[] { 0xBAFE, 0xAAAF, 0xAADC, 0xCACF, 0xBCAF, 0xDACE };
 	private int ADDR_NODE1 = addresses[0];
-	private int BROADCAST = 0xFFFF;
+//	private int BROADCAST = 0xFFFF;
 	static USART usart;
 	private static OutputStream out;
-	private int count;
+//	private int count;
+	stringFormatTime st = new stringFormatTime();
 //	public String[] temp =new String[1];
 //	public String akhir;
 //	static Console c = new Console();
@@ -108,11 +109,14 @@ public class BaseStation {
 						// System.out.print("a");
 					}
 					try {
+						long currTime = Time.currentTimeMillis();
+						Time.setCurrentTimeMillis(currTime);
+						String waktu = st.SFTime(Time.currentTimeMillis());
 						if (f != null) {
 							byte[] dg = f.getPayload();
 							String str = new String(dg, 0, dg.length);
 							String hex_addr = Integer.toHexString((int) f.getSrcAddr());
-							String hasil = "#(" + hex_addr + ");" + str + "#";
+							String hasil = "#(" + hex_addr + ");" + waktu + ";" + str + "#";
 //							temp[0] = hasil;
 							out.write(hasil.getBytes(), 0, hasil.length());
 							usart.flush();

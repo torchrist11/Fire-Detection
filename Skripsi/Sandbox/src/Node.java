@@ -3,7 +3,7 @@
 //import com.virtenio.driver.led.LED;
 import com.virtenio.preon32.examples.common.RadioInit;
 import com.virtenio.radio.ieee_802_15_4.Frame;
-import com.virtenio.vm.Time;
+//import com.virtenio.vm.Time;
 //import java.util.Calendar;
 import com.virtenio.driver.device.ADT7410;
 import com.virtenio.driver.device.MPL115A2;
@@ -19,7 +19,7 @@ public class Node {
 	private int COMMON_CHANNEL = 24;
 	private int COMMON_PANID = 0xCAFE;
 	private int ADDR_NODE1 = addresses[0];
-	private int ADDR_NODE2 = addresses[3];;
+	private int ADDR_NODE2 = addresses[4];
 	private NativeI2C i2c;
 	private ADT7410 temperatureSensor;
 	private SHT21 humiditySensor;
@@ -29,7 +29,7 @@ public class Node {
 	public void Sense() throws Exception {
 		// final Shuttle shuttle = Shuttle.getInstance();
 
-		final stringFormatTime sf = new stringFormatTime();
+//		final stringFormatTime sf = new stringFormatTime();
 //		Calendar cal = Calendar.getInstance();
 
 //		System.out.println("Done(Init)");
@@ -87,9 +87,9 @@ public class Node {
 				int counter = 1;
 				while (true) {
 					try {
-						long currTime = Time.currentTimeMillis();
-						String waktu = sf.SFTime(currTime);
-						msg += counter + ";" + waktu + ";";
+//						long currTime = Time.currentTimeMillis();
+//						String waktu = sf.SFTime(currTime);
+						msg += counter + ";";
 
 						float celsius = temperatureSensor.getTemperatureCelsius();
 						msg += celsius + ";";
