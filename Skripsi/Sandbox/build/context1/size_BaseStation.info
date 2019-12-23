@@ -884,8 +884,8 @@
 	8		getType()I
 	6		<init>()V
 
-215		BaseStation$1
-	201		run()V
+207		BaseStation$1
+	193		run()V
 	14		<init>(LBaseStation;Lcom/virtenio/driver/device/at86rf231/AT86RF231;)V
 
 195		stringFormatTime

@@ -39,7 +39,7 @@ public class Control {
 
 	public void init() throws Exception {
 		try {
-			Preon32Helper nodeHelper = new Preon32Helper("COM4", 115200);
+			Preon32Helper nodeHelper = new Preon32Helper("COM6", 115200);
 			DataConnection conn = nodeHelper.runModule("BaseStation");
 			BufferedInputStream in = new BufferedInputStream(conn.getInputStream());
 			conn.flush();
@@ -108,24 +108,12 @@ public class Control {
 								if (w.startsWith("(") != true) {
 
 								} else {
-//									if (count == 0) {
-//										if (w.startsWith("(")) {
-//											writer.write(w, 0, w.length());
-//											writer.append(tanda);
-//											writer.newLine();
-//											count++;
-//											writer.close();
-//											FileWriter fw = new FileWriter(path, true);
-//											writer = new BufferedWriter(fw);
-//										}
-//									} else {
-										if (w.startsWith("(")) {
-											writer.write(w, 0, w.length());
-											writer.append(tanda);
-											writer.newLine();
-											count++;
-										}
-//									}
+									if (w.startsWith("(")) {
+										writer.write(w, 0, w.length());
+										writer.append(tanda);
+										writer.newLine();
+										count++;
+									}
 									if (count == 100) {
 										writer.close();
 										FileWriter fw = new FileWriter(path, true);

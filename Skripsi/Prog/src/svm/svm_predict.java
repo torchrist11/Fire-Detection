@@ -8,6 +8,7 @@ import java.util.*;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 import Program.Control;
 
@@ -78,11 +79,11 @@ public class svm_predict {
 		List<String> extractCounter = new ArrayList<String>();
 		List<String> extractCounterAwal = new ArrayList<String>();
 		String hasil = "";
-		String line = "";
-		String line2 = "";
-		String line3 = "";
-		String line4 = "";
-		String line5 = "";
+		String tempReader = "";
+		String tempReaderExtract = "";
+		String compute = "";
+		String ubah = "";
+		String compute2 = "";
 		int count2 = 0;
 		String temphasil = "";
 		String temp2 = "";
@@ -105,28 +106,29 @@ public class svm_predict {
 			f.setSize(1000, 500);
 			f.setLocationRelativeTo(null);
 			f.setLayout(new FlowLayout());
+			f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		} else {
 
 		}
-		while ((line = reader.readLine()) != null) {
-			extractCounterAwal.add(line);
+		while ((tempReader = reader.readLine()) != null) {
+			extractCounterAwal.add(tempReader);
 		}
-		while ((line2 = readerExtract.readLine()) != null) {
-			String[] split1 = line2.split(";");
+		while ((tempReaderExtract = readerExtract.readLine()) != null) {
+			String[] split1 = tempReaderExtract.split(";");
 			if (split1[11].equals("[0]")) {
-				extractCounter.add(line2);
+				extractCounter.add(tempReaderExtract);
 			} else {
 
 			}
 		}
 		
 		for(int i = 0; i< extractCounterAwal.size();i++) {
-			line5 = extractCounterAwal.get(count2);
-			line3 = extractCounter.get(count2);
+			compute2 = extractCounterAwal.get(count2);
+			compute = extractCounter.get(count2);
 			count2++;
-			String[] splitter = line3.split(";");
+			String[] splitter = compute.split(";");
 
-			StringTokenizer st = new StringTokenizer(line5, " \t\n\r\f:");
+			StringTokenizer st = new StringTokenizer(compute2, " \t\n\r\f:");
 			int m = st.countTokens() / 2;
 			svm_node[] x = new svm_node[m];
 			for (int j = 0; j < m; j++) {
@@ -172,11 +174,11 @@ public class svm_predict {
 		FileReader fr = new FileReader(Control.fileExtract);
 		BufferedReader br = new BufferedReader(fr);
 
-		while ((line4 = br.readLine()) != null) {
-			if (line4.contains("[0]")) {
-				line4 = line4.replace("[0]", "[1]");
+		while ((ubah = br.readLine()) != null) {
+			if (ubah.contains("[0]")) {
+				ubah = ubah.replace("[0]", "[1]");
 			}
-			temp.add(line4);
+			temp.add(ubah);
 		}
 
 		fr.close();

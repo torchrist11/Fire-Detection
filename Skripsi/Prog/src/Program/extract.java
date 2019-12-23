@@ -52,7 +52,7 @@ public class extract {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		alamat = new String[] { "(AAAF)", "(AADC)", "(CACF)", "(BCAF)", "(DACE)" };
+		alamat = new String[] { "(AAAF)", "(CEDC)", "(CADF)", "(BCCF)", "(DACE)" };
 		try {
 			for (int d = 0; d < Control.temp.size(); d++) {
 				temp2 = Control.temp.get(d).split(";");
@@ -64,7 +64,7 @@ public class extract {
 						String menit = waktu[1];
 						int counterwaktu = Integer.parseInt(waktu[2]);
 						if (counterwaktu <= 30) {
-							
+
 							inputtoarray(1);
 							counter1 = 1;
 						} else if (counterwaktu > 30 && counterwaktu < 60) {
@@ -669,7 +669,7 @@ public class extract {
 			hasilextract += x + ";" + y + ";" + z + ";";
 
 			hasilextracttest += " 7:" + x + " 8:" + y + " 9:" + z;
-			writer.write(alamat[4]);
+			writer.write(alamat[4] + ";");
 			writer.write(jam + ":" + menit + ":" + detik + ";");
 			writer.write(hasilextract + "[0];");
 			writerX.write(hasilextracttest);

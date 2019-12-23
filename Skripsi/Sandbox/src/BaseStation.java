@@ -14,16 +14,11 @@ import com.virtenio.preon32.examples.common.RadioInit;
 public class BaseStation {
 	private int COMMON_CHANNEL = 24;
 	private int COMMON_PANID = 0xCAFE;
-	private int[] addresses = new int[] { 0xBAFE, 0xAAAF, 0xAADC, 0xCACF, 0xBCAF, 0xDACE };
+	private int[] addresses = new int[] { 0xBAFE, 0xAAAF, 0xCEDC, 0xCADF, 0xBCCF, 0xDACE };
 	private int ADDR_NODE1 = addresses[0];
-//	private int BROADCAST = 0xFFFF;
 	static USART usart;
 	private static OutputStream out;
-//	private int count;
 	stringFormatTime st = new stringFormatTime();
-//	public String[] temp =new String[1];
-//	public String akhir;
-//	static Console c = new Console();
 
 	private static USART configUSART() throws Exception {
 		int instanceID = 0;
@@ -97,8 +92,6 @@ public class BaseStation {
 		Thread reader = new Thread() {
 			@Override
 			public void run() {
-				// System.out.println("Start");
-
 				while (true) {
 					Frame f = null;
 					try {
@@ -106,25 +99,20 @@ public class BaseStation {
 						radio.setState(AT86RF231.STATE_RX_AACK_ON);
 						radio.waitForFrame(f);
 					} catch (Exception e) {
-						// System.out.print("a");
 					}
 					try {
 						long currTime = Time.currentTimeMillis();
-						Time.setCurrentTimeMillis(currTime);
-						String waktu = st.SFTime(Time.currentTimeMillis());
+						String waktu = st.SFTime(currTime);
 						if (f != null) {
 							byte[] dg = f.getPayload();
 							String str = new String(dg, 0, dg.length);
 							String hex_addr = Integer.toHexString((int) f.getSrcAddr());
 							String hasil = "#(" + hex_addr + ");" + waktu + ";" + str + "#";
-//							temp[0] = hasil;
 							out.write(hasil.getBytes(), 0, hasil.length());
 							usart.flush();
-							// System.out.println(hasil);
 							Thread.sleep(100);
 						}
 					} catch (Exception e) {
-						// System.out.print("no input");
 					}
 				}
 			}

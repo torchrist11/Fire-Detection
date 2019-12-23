@@ -15,11 +15,11 @@ import com.virtenio.driver.i2c.I2C;
 import com.virtenio.driver.i2c.NativeI2C;
 
 public class Node {
-	private int[] addresses = new int[] { 0xBAFE, 0xAAAF, 0xAADC, 0xCACF, 0xBCAF, 0xDACE };
+	private int[] addresses = new int[] { 0xBAFE, 0xAAAF, 0xCEDC, 0xCADF, 0xBCCF, 0xDACE };
 	private int COMMON_CHANNEL = 24;
 	private int COMMON_PANID = 0xCAFE;
 	private int ADDR_NODE1 = addresses[0];
-	private int ADDR_NODE2 = addresses[4];
+	private int ADDR_NODE2 = addresses[2];
 	private NativeI2C i2c;
 	private ADT7410 temperatureSensor;
 	private SHT21 humiditySensor;
@@ -29,14 +29,8 @@ public class Node {
 	public void Sense() throws Exception {
 		// final Shuttle shuttle = Shuttle.getInstance();
 
-//		final stringFormatTime sf = new stringFormatTime();
-//		Calendar cal = Calendar.getInstance();
-
-//		System.out.println("Done(Init)");
-//		System.out.println("Start");
-
 		final AT86RF231 radio = RadioInit.initRadio();
-		radio.setChannel(COMMON_CHANNEL);
+		radio.setChannel(COMMON_CHANNEL); 
 		radio.setPANId(COMMON_PANID);
 		radio.setShortAddress(ADDR_NODE2);
 		Thread th = new Thread() {
@@ -44,8 +38,7 @@ public class Node {
 				try {
 					i2c = NativeI2C.getInstance(1);
 					i2c.open(I2C.DATA_RATE_400);
-					// System.out.println("ADT7410(Init)" + ";" + " SHT21(Init)" + ";" + "
-					// MPL115A2(Init)");
+					
 					temperatureSensor = new ADT7410(i2c, ADT7410.ADDR_0, null, null);
 					temperatureSensor.open();
 					temperatureSensor.setMode(ADT7410.CONFIG_MODE_CONTINUOUS);
@@ -87,8 +80,6 @@ public class Node {
 				int counter = 1;
 				while (true) {
 					try {
-//						long currTime = Time.currentTimeMillis();
-//						String waktu = sf.SFTime(currTime);
 						msg += counter + ";";
 
 						float celsius = temperatureSensor.getTemperatureCelsius();
@@ -111,6 +102,7 @@ public class Node {
 //						Thread.sleep(1000 - MPL115A2.BOTH_CONVERSION_TIME);
 						msg += pressure;
 						String message = msg;
+						msg = "";
 						Frame frame = new Frame(Frame.TYPE_DATA | Frame.ACK_REQUEST | Frame.DST_ADDR_16 | Frame.INTRA_PAN
 								| Frame.SRC_ADDR_16);
 						frame.setSrcAddr(ADDR_NODE2);
@@ -120,8 +112,6 @@ public class Node {
 						radio.setState(AT86RF231.STATE_TX_ARET_ON);
 						frame.setPayload(message.getBytes()); // ngasih paket ke frame
 						radio.transmitFrame(frame);
-						// System.out.println("(" + i + ") : " + msg);
-						msg = "";
 						counter++;
 					}
 					catch(Exception e) {
